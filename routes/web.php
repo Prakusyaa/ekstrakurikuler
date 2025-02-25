@@ -20,9 +20,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'siswa'])->group(function () {
-    Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
+Route::middleware('auth')->get('/siswa', function () {
+    dd(Auth::user());
 });
+
 
 Route::middleware(['auth', 'guru'])->group(function () {
     Route::get('/guru', [GuruController::class, 'index'])->name('guru.index');

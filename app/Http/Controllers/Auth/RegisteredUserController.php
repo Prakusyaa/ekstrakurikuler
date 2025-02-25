@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
+    
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -42,16 +42,9 @@ class RegisteredUserController extends Controller
             'role' => 'siswa',
             'verif' => 'unverified'
         ]);
-
+    
         event(new Registered($user));
-
-        Auth::login($user);
-
-        if (!Auth::user()->verified) { //verified = enum, bukan nama kolom
-            Auth::logout();
-            return redirect()->route('login')->withErrors(['email' => 'Tunggu admin memverifikasi akun Anda.']);
-        }
-
-        return redirect(route('dashboard', absolute: false));
+    
+        return redirect()->route('login')->with('status', 'Akun berhasil dibuat, tunggu admin untuk proses verifikasi :)');
     }
 }

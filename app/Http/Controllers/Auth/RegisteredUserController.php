@@ -40,12 +40,17 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'siswa',
-            'verif' => 'belum'
+            'verif' => 'unverified'
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
+
+        if (!Auth::user()->verified) { //verified = enum, bukan nama kolom
+            Auth::logout();
+            return redirect()->route('login')->withErrors(['email' => 'Tunggu admin memverifikasi akun Anda.']);
+        }
 
         return redirect(route('dashboard', absolute: false));
     }

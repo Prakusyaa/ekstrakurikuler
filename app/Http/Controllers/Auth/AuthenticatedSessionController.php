@@ -28,6 +28,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if (!Auth::user()->verified) { //verified = enum, bukan nama kolom
+            Auth::logout();
+            return redirect()->route('login')->withErrors(['email' => 'Akun Anda belum terverifikasi oleh admin.']);
+        }
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

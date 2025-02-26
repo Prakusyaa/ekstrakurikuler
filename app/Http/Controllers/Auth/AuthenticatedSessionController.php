@@ -31,8 +31,8 @@ class AuthenticatedSessionController extends Controller
         if (Auth::user()->verif == 'unverified') {
             Auth::logout();
             return redirect()->route('login')->withErrors(['email' => 'Akun Anda belum terverifikasi oleh admin.']);
-        }
-
+        } 
+        
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

@@ -18,6 +18,10 @@ class Siswa
     {
         if (Auth::check() && Auth::user()->role == 'siswa') {
             return $next($request);
+        } else {
+            if (Auth::check() && Auth::user()->role == 'admin') {
+                return $next($request);
+            }
         }
         abort(403);
     }

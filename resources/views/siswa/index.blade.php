@@ -5,6 +5,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Halaman Untuk {{ Auth::user()->name }}</h1>
+    <h1>Halaman Untuk siswa</h1>
 </body>
 </html>

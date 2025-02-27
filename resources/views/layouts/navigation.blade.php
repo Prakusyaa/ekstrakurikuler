@@ -15,8 +15,13 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+
+                    <x-nav-link :href="route('ekstrakulikuler')" :active="request()->routeIs('ekstrakulikuler')">
+                        {{ __('Ekstrakulikuler') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('ekskul', ['name' => Auth::user()->name])" :active="request()->routeIs('kelola')">
+                        {{ __('Ekskul yang Diikuti') }}
                     </x-nav-link>
                 </div>
             </div>

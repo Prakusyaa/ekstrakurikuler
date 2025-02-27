@@ -27,11 +27,11 @@ Route::middleware('auth')->group(function () {
 }); || contoh rute khusus role tertentu || */
 
 Route::get('/ekstrakulikuler', function () {
-    return view('ekstrakulikuler');
+    return view('ekstrakulikuler/daftar_ekstrakulikuler');
 })->middleware(['auth'])->name('ekstrakulikuler');
 
 Route::get('/ekskul/{name}', function ($name) {
-    return view('ekstrakulikuler', ['name' => $name]);
+    return view('ekstrakulikuler/ekskul_saya', ['name' => $name]);
 })->middleware(['auth'])->name('ekskul'); // cara manggil = {{ route('ekskul', ['name' => Auth::user()->name]) }}
 
 

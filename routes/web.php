@@ -12,7 +12,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -20,8 +20,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// kodingan mulai dari sini
+
 /* Route::middleware(['auth', 'siswa'])->group(function () {
     Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
-}); || contoh rute khusus role tertentu woilah || */
+}); || contoh rute khusus role tertentu || */
+
+Route::get('/ekstrakulikuler', function () {
+    return view('ekstrakulikuler');
+})->middleware(['auth'])->name('ekstrakulikuler');
+
+Route::get('/ekskul/{name}', function ($name) {
+    return view('ekstrakulikuler', ['name' => $name]);
+})->middleware(['auth'])->name('ekskul'); // cara manggil = {{ route('ekskul', ['name' => Auth::user()->name]) }}
+
 
 require __DIR__.'/auth.php';

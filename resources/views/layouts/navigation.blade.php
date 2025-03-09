@@ -20,9 +20,9 @@
                         {{ __('Ekstrakulikuler') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('ekskul', ['name' => Auth::user()->name])" :active="request()->routeIs('kelola')">
+                    <x-nav-link :href="route('ekskul', ['name' => Auth::user()->name])" :active="request()->routeIs('ekskul')">
                         {{ __('Ekskul yang Diikuti') }}
-                    </x-nav-link>
+                    </x-nav-link>                    
                 </div>
             </div>
 

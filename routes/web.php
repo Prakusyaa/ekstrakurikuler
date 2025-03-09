@@ -20,9 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// kodingan mulai dari sini
-
-/* Route::middleware(['auth', 'siswa'])->group(function () {
+/* Route::middleware(['siswa'])->group(function () {
     Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
 }); || contoh rute khusus role tertentu || */
 

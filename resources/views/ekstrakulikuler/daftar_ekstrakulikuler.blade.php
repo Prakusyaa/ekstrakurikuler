@@ -65,6 +65,14 @@
     .refresh-container:hover img {
         filter: invert(1);
     }
+
+    /* card */
+    .card {
+        width: 18rem;
+        margin-top: 3rem;
+        margin-left: 2rem;
+        border: none !important;
+    }
 </style>
 
 <x-app-layout>
@@ -75,7 +83,7 @@
     </x-slot>
 
     <div class="search-refresh-wrapper">
-        <!-- Search Box -->
+        <!-- search box -->
         <div class="search-container rounded">
             <div class="input-group">
                 <input type="text" class="form-control rounded-start" placeholder="Cari ekstrakurikuler..." aria-label="Search">
@@ -85,10 +93,20 @@
             </div>
         </div>
 
-        <!-- Refresh Button -->
+        <!-- refresh button -->
         <div class="refresh-container" onclick="location.reload();">
             <img src="{{ asset('img/refresh.webp') }}" alt="Refresh">
         </div>
     </div>
 
+    <!-- card -->
+    <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <br>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <br>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
 </x-app-layout>

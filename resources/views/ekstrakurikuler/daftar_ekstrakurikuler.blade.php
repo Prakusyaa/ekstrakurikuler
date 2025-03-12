@@ -103,24 +103,28 @@
 
     <div class="search-refresh-wrapper">
         <!-- search box -->
-        <div class="search-container rounded">
+        <form action="{{ route('ekstrakurikuler') }}" method="GET" class="search-container rounded">
             <div class="input-group">
-                <input type="text" class="form-control rounded-start" placeholder="Cari ekstrakurikuler..." aria-label="Search">
-                <button class="search-button btn btn-outline-primary">
+                <input type="text" autocomplete="off" name="search" class="form-control rounded-start" placeholder="Cari ekstrakurikuler..." value="{{ request('search') }}">
+                <button type="submit" class="search-button btn btn-outline-primary">
                     <img class="search-icon" src="{{ asset('img/search.webp') }}" alt="Search" width="20">
                 </button>
             </div>
-        </div>
+        </form>
+        
+        @if($ekstrakurikuler->isEmpty())
+            <p class="text-center mt-4">Tidak ada ekstrakurikuler yang ditemukan.</p>
+        @endif
 
         <!-- refresh button -->
-        <div class="refresh-container" onclick="location.reload();">
-            <img src="{{ asset('img/refresh.webp') }}" alt="Refresh">
-        </div>
+        <div class="refresh-container" onclick="window.location.href='{{ route('ekstrakurikuler') }}'">
+            <img src="{{ asset('img/refresh.webp') }}" alt="Refresh"> 
+        </div>        
     </div>
 
     <!-- card container -->
     <div class="card-container container-fluid mt-4 mb-5">
-        <div class="row g-4 justify-content-center">
+        <div class="row g-4">
             @foreach ($ekstrakurikuler as $ekskul)
             <div class="col-md-4">
                 <div class="card shadow rounded">

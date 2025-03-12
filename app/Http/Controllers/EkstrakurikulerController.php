@@ -7,9 +7,14 @@ use App\Models\Ekstrakurikuler;
 
 class EkstrakurikulerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $ekstrakurikuler = Ekstrakurikuler::all();
+        $search = $request->input('search');
+
+        $ekstrakurikuler = Ekstrakurikuler::when($search, function ($i) use ($search) {
+            $i->where('nama', 'like', "%{$search}%");
+        })->get();
+
         return view('ekstrakurikuler.daftar_ekstrakurikuler', compact('ekstrakurikuler'));
     }
 }

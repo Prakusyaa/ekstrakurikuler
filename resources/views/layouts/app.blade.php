@@ -17,30 +17,13 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <style>
-        /* any browser */
-        ::-webkit-scrollbar {
-            width: 8px;
+        body {
+            overflow: scroll;
         }
 
-        ::-webkit-scrollbar-track {
-            background: #f9f9f9;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(150, 150, 150, 0.5);
-            border-radius: 10px;
-            transition: background 0.3s ease;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(100, 100, 100, 0.8);
-        }
-
-        /* firefox (bro tryna be different ong icl) */
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: rgba(150, 150, 150, 0.5) #f9f9f9;
+        body::-webkit-scrollbar {
+            width: 0px;
+            height: 0px;
         }
     </style>
     <body class="font-sans antialiased">

@@ -67,11 +67,8 @@
     }
 
     /* card */
-    .card {
-        width: 18rem;
-        margin-top: 3rem;
-        margin-left: 2rem;
-        border: none !important;
+    .card-container{
+        padding: 0 2rem !important;
     }
 </style>
 
@@ -99,14 +96,36 @@
         </div>
     </div>
 
-    <!-- card -->
-    <div class="card shadow">
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <br>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <br>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+    <!-- card container -->
+    <div class="card-container container-fluid mt-4">
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="card shadow-sm rounded-lg">
+                    <div class="card-body">
+                        <h5 class="card-title">Ekstrakurikuler 1</h5>
+                        <p class="card-text"></p>
+                        <a href="" class="btn btn-primary">Detail</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm rounded-lg">
+                    <div class="card-body">
+                        <h5 class="card-title">Ekstrakurikuler 2</h5>
+                        <p class="card-text"></p>
+                        <a href="" class="btn btn-primary">Detail</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm rounded-lg">
+                    <div class="card-body">
+                        <h5 class="card-title">Ekstrakurikuler 3</h5>
+                        <p class="card-text"></p>
+                        <a href="" class="btn btn-primary">Detail</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </div>
 </x-app-layout>

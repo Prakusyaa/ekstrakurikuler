@@ -67,8 +67,30 @@
     }
 
     /* card */
-    .card-container{
+    .card-container {
         padding: 0 2rem !important;
+        padding-bottom: 4rem;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border: none !important;
+    }
+
+    .card-body {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-title {
+        font-size: 25px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
     }
 </style>
 
@@ -97,35 +119,20 @@
     </div>
 
     <!-- card container -->
-    <div class="card-container container-fluid mt-4">
+    <div class="card-container container-fluid mt-4 mb-5">
         <div class="row g-4 justify-content-center">
+            @foreach ($ekstrakurikuler as $ekskul)
             <div class="col-md-4">
-                <div class="card shadow-sm rounded-lg">
+                <div class="card shadow rounded">
                     <div class="card-body">
-                        <h5 class="card-title">Ekstrakurikuler 1</h5>
-                        <p class="card-text"></p>
-                        <a href="" class="btn btn-primary">Detail</a>
+                        <h5 class="card-title"><b>{{ $ekskul->nama }}</b></h5>
+                        <p class="card-guru"><b>G. Pembimbing: {{ $ekskul->guru_pembimbing }}</b></p>
+                        <p class="card-description mt-1">{{ Str::limit($ekskul->deskripsi, 100, '...') }}</p>
+                        <a href="" class="btn btn-primary mt-3">Detail</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm rounded-lg">
-                    <div class="card-body">
-                        <h5 class="card-title">Ekstrakurikuler 2</h5>
-                        <p class="card-text"></p>
-                        <a href="" class="btn btn-primary">Detail</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm rounded-lg">
-                    <div class="card-body">
-                        <h5 class="card-title">Ekstrakurikuler 3</h5>
-                        <p class="card-text"></p>
-                        <a href="" class="btn btn-primary">Detail</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
-    </div>
+    </div>  
 </x-app-layout>

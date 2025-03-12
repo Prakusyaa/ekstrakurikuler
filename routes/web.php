@@ -5,6 +5,7 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EkstrakurikulerController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,12 +25,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
 }); || contoh rute khusus role tertentu || */
 
-Route::get('/ekstrakulikuler', function () {
-    return view('ekstrakulikuler/daftar_ekstrakulikuler');
-})->middleware(['auth'])->name('ekstrakulikuler');
+Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'index'])->
+middleware(['auth'])->name('ekstrakurikuler');
 
-Route::get('/ekskul/{name}', function ($name) {
-    return view('ekstrakulikuler/ekskul_saya', ['name' => $name]);
+Route::get('/ekskul/{name}', function ($name) { 
+    return view('ekstrakurikuler/ekskul_saya', ['name' => $name]);
 })->middleware(['auth'])->name('ekskul'); // cara manggil = {{ route('ekskul', ['name' => Auth::user()->name]) }}
 
 

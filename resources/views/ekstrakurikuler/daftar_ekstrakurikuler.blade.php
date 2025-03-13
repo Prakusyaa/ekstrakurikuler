@@ -17,8 +17,6 @@
         height: 60px;
         background-color: #FFFFFF;
         padding: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
     }
 
     .search-button {
@@ -69,7 +67,7 @@
     /* card */
     .card-container {
         padding: 0 2rem !important;
-        padding-bottom: 4rem;
+        padding-bottom: 2rem;
     }
 
     .card {
@@ -103,7 +101,7 @@
 
     <div class="search-refresh-wrapper">
         <!-- search box -->
-        <form action="{{ route('ekstrakurikuler') }}" method="GET" class="search-container rounded">
+        <form action="{{ route('ekstrakurikuler') }}" method="GET" class="search-container rounded shadow">
             <div class="input-group">
                 <input type="text" autocomplete="off" name="search" class="form-control rounded-start" placeholder="Cari ekstrakurikuler..." value="{{ request('search') }}">
                 <button type="submit" class="search-button btn btn-outline-primary">
@@ -126,16 +124,31 @@
     <div class="card-container container-fluid mt-4 mb-5">
         <div class="row g-4">
             @foreach ($ekstrakurikuler as $ekskul)
-            <div class="col-md-4">
-                <div class="card shadow rounded">
-                    <div class="card-body">
-                        <h5 class="card-title"><b>{{ $ekskul->nama }}</b></h5>
-                        <p class="card-guru"><b>G. Pembimbing: {{ $ekskul->guru_pembimbing }}</b></p>
-                        <p class="card-description mt-1">{{ Str::limit($ekskul->deskripsi, 100, '...') }}</p>
-                        <a href="" class="btn btn-primary mt-3">Detail</a>
+                <div class="col-md-4">
+                    <div class="card shadow rounded">
+                        <div class="card-body">
+                            <h5 class="card-title"><b>{{ $ekskul->nama }}</b></h5>
+                            <p class="card-guru"><b>G. Pembimbing: {{ $ekskul->guru_pembimbing }}</b></p>
+                            <p class="card-description mt-1">{{ Str::limit($ekskul->deskripsi, 100, '...') }}</p>
+
+                            @if (Auth::user()->role == 'guru')
+                            <br>
+                            @elseif (in_array($ekskul->id, $anggota))
+                                <form action="{{ route('keluar.ekstrakurikuler', $ekskul->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger mt-3 w-100">Keluar</button>
+                                </form>
+                            @else
+                                <form action="{{ route('gabung.ekstrakurikuler', $ekskul->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success mt-3 w-100">Bergabung</button>
+                                </form>
+                            @endif
+
+                            <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" class="btn btn-primary">Detail</a>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </div>  
             @endforeach
         </div>
     </div>  

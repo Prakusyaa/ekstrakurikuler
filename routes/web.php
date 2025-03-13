@@ -25,12 +25,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
 }); || contoh rute khusus role tertentu || */
 
-Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'index'])->
-middleware(['auth'])->name('ekstrakurikuler');
+Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'index'])
+    ->middleware(['auth'])->name('ekstrakurikuler');
+
+Route::get('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'show'])
+    ->name('ekstrakurikuler.detail')
+    ->middleware(['auth']);
 
 Route::get('/ekskul/{name}', function ($name) { 
-    return view('ekstrakurikuler/ekskul_saya', ['name' => $name]);
-})->middleware(['auth'])->name('ekskul'); // cara manggil = {{ route('ekskul', ['name' => Auth::user()->name]) }}
+    return view('ekstrakurikuler/ekskul_saya', ['name' => $name]);})
+    ->middleware(['auth'])->name('ekskul'); // cara manggil = {{ route('ekskul', ['name' => Auth::user()->name]) }}
+
+Route::post('/ekstrakurikuler/{id}/join', [EkstrakurikulerController::class, 'gabung'])
+    ->name('gabung.ekstrakurikuler')->middleware('auth');
+
+Route::post('/ekstrakurikuler/{id}/leave', [EkstrakurikulerController::class, 'keluar'])
+    ->name('keluar.ekstrakurikuler')->middleware('auth');
+
 
 
 require __DIR__.'/auth.php';

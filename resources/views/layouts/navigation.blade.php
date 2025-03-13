@@ -20,9 +20,14 @@
                         {{ __('Ekstrakurikuler') }}
                     </x-nav-link>
 
+                    @if (Auth::user()->role == 'guru')
+                        
+                    @else
                     <x-nav-link :href="route('ekskul', ['name' => Auth::user()->name])" :active="request()->routeIs('ekskul')">
                         {{ __('Ekskul yang Diikuti') }}
-                    </x-nav-link>                    
+                    </x-nav-link>
+                    @endif
+                    
                 </div>
             </div>
 

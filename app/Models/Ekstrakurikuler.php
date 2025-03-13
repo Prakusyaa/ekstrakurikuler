@@ -11,4 +11,9 @@ class Ekstrakurikuler extends Model
 
     protected $table = 'ekstrakurikuler';
     protected $fillable = ['nama', 'deskripsi', 'guru_pembimbing', 'created_by'];
+
+    public function anggota()
+    {
+        return $this->hasMany(Anggota::class, 'ekskul_id');
+    }
 }

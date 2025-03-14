@@ -15,6 +15,7 @@ class AnggotaController extends Controller
         if (!$user->anggota()->where('ekskul_id', $id)->exists()) {
             Anggota::create([
                 'user_id' => $user->id,
+                'nama' => $user->name,
                 'ekskul_id' => $id
             ]);
         }

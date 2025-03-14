@@ -32,8 +32,7 @@ class EkstrakurikulerController extends Controller
         return view('ekstrakurikuler.detail', [
             'ekskul' => $ekskul,
             'sgabung' => $user && $ekskul->anggota()->where('user_id', $user->id)->exists(),
-            'member' => $ekskul->anggota,
-            'nama' => optional($user->anggota()->where('user_id', $user->id)->first())->user->name ?? 'Tidak ditemukan'
+            'member' => $ekskul->anggota()->select('nama', 'created_at')->get()
         ]);
     }
 }

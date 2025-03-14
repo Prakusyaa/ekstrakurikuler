@@ -23,6 +23,7 @@ return new class extends Migration
         Schema::create('anggota_ekstrakurikuler', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('nama');
             $table->unsignedBigInteger('ekskul_id');
             $table->timestamps();
         });

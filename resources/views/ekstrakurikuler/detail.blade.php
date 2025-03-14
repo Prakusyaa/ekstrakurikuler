@@ -152,12 +152,14 @@
           </tr>
           @foreach ($member as $anggota)
           <tr>
-            <th> {{ $anggota->user->name }} </th>
-            <th> {{ Str::limit($anggota->created_at, 10, '') }} </th>
-            @if (Auth::user()->role == 'guru')
-            <th>
-              <button type="button" class="btn btn-danger btn-sm w-100 text-wrap">Keluarkan</button></th>          
-            @endif
+              <th> {{ $anggota->nama }} </th>
+              <th> {{ $anggota->created_at->format('d-m-Y') }} </th>
+              @if (Auth::user()->role == 'guru')
+              <th>
+                @csrf
+                  <button type="button" class="btn btn-danger btn-sm w-100 text-wrap">Keluarkan</button>
+              </th>          
+              @endif
           </tr>
           @endforeach
         </table>

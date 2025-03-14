@@ -11,7 +11,7 @@ class Anggota extends Model
 
     protected $table = 'anggota_ekstrakurikuler';
 
-    protected $fillable = ['user_id', 'ekskul_id'];
+    protected $fillable = ['user_id', 'nama', 'ekskul_id'];
     
     public function anggota()
     {

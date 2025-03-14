@@ -20,9 +20,7 @@
                         {{ __('Ekstrakurikuler') }}
                     </x-nav-link>
 
-                    @if (Auth::user()->role == 'guru')
-                        
-                    @else
+                    @if (Auth::user()->role == 'siswa')
                     <x-nav-link :href="route('ekskul', ['name' => Auth::user()->name])" :active="request()->routeIs('ekskul')">
                         {{ __('Ekskul yang Diikuti') }}
                     </x-nav-link>
@@ -86,9 +84,12 @@
             <x-responsive-nav-link :href="route('ekstrakurikuler')" :active="request()->routeIs('ekstrakurikuler')">
                 {{ __('Ekstrakurikuler') }}
             </x-responsive-nav-link>
+            @if (Auth::user()->role == 'siswa')
             <x-responsive-nav-link :href="route('ekskul', ['name' => Auth::user()->name])" :active="request()->routeIs('ekskul')">
                 {{ __('Ekskul yang Diikuti') }}
             </x-responsive-nav-link>
+            @endif
+            
         </div>
 
         <!-- Responsive Settings Options -->

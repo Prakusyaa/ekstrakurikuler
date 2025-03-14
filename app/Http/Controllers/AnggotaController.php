@@ -5,13 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Anggota;
 use Illuminate\Http\Request;
 
-class MemberController extends Controller
+class AnggotaController extends Controller
 {
-    public function index()
-    {
-        
-    }
-
     public function gabung($id)
     {
         $user = auth()->user();

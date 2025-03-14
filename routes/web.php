@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SiswaController;
-use App\Http\Controllers\MemberController;
+use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EkstrakurikulerController;
 
@@ -35,10 +35,10 @@ Route::get('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'show'])
     ->middleware(['auth']);
 
 // untuk gabung/keluar ekskul
-Route::post('/ekstrakurikuler/{id}/join', [MemberController::class, 'gabung'])
+Route::post('/ekstrakurikuler/{id}/join', [AnggotaController::class, 'gabung'])
     ->name('gabung.ekstrakurikuler')->middleware('auth');
 
-Route::post('/ekstrakurikuler/{id}/leave', [MemberController::class, 'keluar'])
+Route::post('/ekstrakurikuler/{id}/leave', [AnggotaController::class, 'keluar'])
     ->name('keluar.ekstrakurikuler')->middleware('auth');
 
 //

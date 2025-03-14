@@ -146,15 +146,20 @@
           <tr>
             <th scope="col">Nama</th>
             <th scope="col">Tanggal bergabung</th>
+            @if (Auth::user()->role == 'guru')
+            <th scope="col">Interaksi</th>
+            @endif
           </tr>
+          @foreach ($member as $anggota)
           <tr>
-            <td>sas</td>
-            <td>sas</td>
+            <th> {{ $anggota->user->name }} </th>
+            <th> {{ Str::limit($anggota->created_at, 10, '') }} </th>
+            @if (Auth::user()->role == 'guru')
+            <th>
+              <button type="button" class="btn btn-danger btn-sm w-100 text-wrap">Keluarkan</button></th>          
+            @endif
           </tr>
-          <tr>
-            <td>sas</td>
-            <td>sas</td>
-          </tr>
+          @endforeach
         </table>
       </div>
     </div>

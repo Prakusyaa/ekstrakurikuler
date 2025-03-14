@@ -27,11 +27,13 @@ class EkstrakurikulerController extends Controller
     public function show($id)
     {
         $ekskul = Ekstrakurikuler::findOrFail($id);
+        $user = auth()->user();
 
-        $sgabung = auth()->check() && $ekskul->anggota()->where('user_id', auth()->id())->exists();
-
-        return view('ekstrakurikuler.detail', compact('ekskul', 'sgabung'));
+        return view('ekstrakurikuler.detail', [
+            'ekskul' => $ekskul,
+            'sgabung' => $user && $ekskul->anggota()->where('user_id', $user->id)->exists(),
+            'member' => $ekskul->anggota,
+            'nama' => optional($user->anggota()->where('user_id', $user->id)->first())->user->name ?? 'Tidak ditemukan'
+        ]);
     }
-
-
 }

@@ -15,7 +15,7 @@ class Anggota extends Model
     
     public function anggota()
     {
-        return $this->hasMany(AnggotaEkstrakurikuler::class, 'ekstrakurikuler_id');
+        return $this->hasMany(Anggota::class, 'ekstrakurikuler_id');
     }
 
     public function user()

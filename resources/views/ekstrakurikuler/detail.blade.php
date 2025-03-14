@@ -27,12 +27,7 @@
         margin-top: 2rem;
         margin-left: 2rem;
         background-color: #FFFFFF;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .description-container-title p {
-        font-size: calc(1vw + 1rem);
+        font-size: calc(1vw + 0.7rem);
         font-weight: bold;
     }
 
@@ -41,17 +36,47 @@
       width: calc(100% - 4rem);
       max-width: 100vw;
       padding: 20px;
-      margin: 1rem auto 2rem auto;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin: 0rem auto 0rem auto;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       height: max-content;
   }
 
-  .description-container p{
+  .description-container p {
     font-size: calc(1vw + 0.7rem);
+  }
+
+  /* table card */
+  .title-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    width: max-content;
+    height: max-content;
+    margin-top: 1rem;
+    margin-left: 2rem;
+    background-color: #FFFFFF;
+    font-size: calc(1vw + 0.7rem);
+    font-weight: bold;
+  }
+
+  .table-container {
+    background-color: #FFFFFF;
+    width: calc(100% - 4rem);
+    max-width: 100vw;
+    padding: 20px;
+    padding-bottom: 5px;
+    margin: 0rem auto 0rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: max-content;
+  }
+
+  .table-container th {
+    font-size: calc(1vw + 0.5rem);;
   }
 </style>
 
@@ -101,7 +126,7 @@
 
       <!-- nama ekstra -->
       <div class="description-container-title shadow rounded">
-          <p><b>{{ ('Ekstrakurikuler ' . $ekskul->nama) }}</b></p>
+          <p><b>Ekstrakurikuler {{ $ekskul->nama }}</b></p>
       </div>
 
       <!-- deskripsi ekstrakurikuler -->
@@ -110,7 +135,28 @@
           <p class="mt-2">{{ $ekskul->deskripsi }}</p>
       </div>
 
-      <!-- anggota -->
+      <!-- title table -->
+      <div class="title-container shadow rounded">
+        <p><b>Angota Ekstrakurikuler {{ $ekskul->nama }}</b></p>
+      </div>
+
+      <!-- table -->
+      <div class="table-container shadow rounded">
+        <table class="table table-fixed table-hover">
+          <tr>
+            <th scope="col">Nama</th>
+            <th scope="col">Tanggal bergabung</th>
+          </tr>
+          <tr>
+            <td>sas</td>
+            <td>sas</td>
+          </tr>
+          <tr>
+            <td>sas</td>
+            <td>sas</td>
+          </tr>
+        </table>
+      </div>
     </div>
     
 </x-app-layout>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EkstrakurikulerController;
 
@@ -28,20 +29,21 @@ Route::middleware('auth')->group(function () {
 Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'index'])
     ->middleware(['auth'])->name('ekstrakurikuler');
 
+// route ke detail ekstrakurikuler tertentu
 Route::get('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'show'])
     ->name('ekstrakurikuler.detail')
     ->middleware(['auth']);
 
+// untuk gabung/keluar ekskul
+Route::post('/ekstrakurikuler/{id}/join', [MemberController::class, 'gabung'])
+    ->name('gabung.ekstrakurikuler')->middleware('auth');
+
+Route::post('/ekstrakurikuler/{id}/leave', [MemberController::class, 'keluar'])
+    ->name('keluar.ekstrakurikuler')->middleware('auth');
+
+//
 Route::get('/ekskul/{name}', function ($name) { 
     return view('ekstrakurikuler/ekskul_saya', ['name' => $name]);})
     ->middleware(['auth'])->name('ekskul'); // cara manggil = {{ route('ekskul', ['name' => Auth::user()->name]) }}
-
-Route::post('/ekstrakurikuler/{id}/join', [EkstrakurikulerController::class, 'gabung'])
-    ->name('gabung.ekstrakurikuler')->middleware('auth');
-
-Route::post('/ekstrakurikuler/{id}/leave', [EkstrakurikulerController::class, 'keluar'])
-    ->name('keluar.ekstrakurikuler')->middleware('auth');
-
-
 
 require __DIR__.'/auth.php';

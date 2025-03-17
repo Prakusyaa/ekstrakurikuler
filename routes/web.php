@@ -42,8 +42,8 @@ Route::post('/ekstrakurikuler/{id}/leave', [AnggotaController::class, 'keluar'])
     ->name('keluar.ekstrakurikuler')->middleware('auth');
 
 //
-Route::get('/ekskul/{name}', function ($name) { 
-    return view('ekstrakurikuler/ekskul_saya', ['name' => $name]);})
-    ->middleware(['auth'])->name('ekskul'); // cara manggil = {{ route('ekskul', ['name' => Auth::user()->name]) }}
+Route::get('/ekskul-saya', [AnggotaController::class, 'ekskulSaya'])
+    ->middleware(['auth'])
+    ->name('ekskul.saya');
 
 require __DIR__.'/auth.php';

@@ -31,4 +31,14 @@ class AnggotaController extends Controller
 
         return redirect()->back()->with('success', 'Berhasil keluar');
     }
+
+    public function ekskulSaya()
+    {
+        $user = auth()->user();
+        
+        // Ambil daftar ekstrakurikuler yang diikuti user
+        $ekstrakurikuler = $user->anggota()->with('ekstrakurikuler')->get();
+
+        return view('ekstrakurikuler.ekskul_saya', compact('ekstrakurikuler'));
+    }
 }

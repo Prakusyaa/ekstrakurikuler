@@ -1,53 +1,14 @@
 @section('title', $ekskul->nama . ' - SMKN 5 SKA')
 
 <x-app-layout>
-    <!-- carousel -->
-    <div id="carouselExampleDark" class="carousel carousel-dark slide">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner shadow-sm">
-          <div class="carousel-item active" data-bs-interval="10000">
-            <img src="{{ asset('carousel-test.png') }}" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>First slide label</h5>
-              <p>Some representative placeholder content for the first slide.</p>
-            </div>
-          </div>
-          <div class="carousel-item" data-bs-interval="2000">
-            <img src="{{ asset('carousel-test1.png') }}" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Second slide label</h5>
-              <p>Some representative placeholder content for the second slide.</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="{{ asset('carousel-test.png') }}" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Third slide label</h5>
-              <p>Some representative placeholder content for the third slide.</p>
-            </div>
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-    </div>
+  <x-slot name="header">
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        Ekstrakurikuler {{ __($ekskul->nama) }}
+    </h2>
+  </x-slot>
 
     <!-- card container -->
     <div class="card-container">
-
-      <!-- nama ekstra -->
-      <div class="description-container-title shadow rounded">
-          <p><b>Ekstrakurikuler {{ $ekskul->nama }}</b></p>
-      </div>
 
       <!-- deskripsi ekstrakurikuler -->
       <div class="description-container shadow rounded">
@@ -58,6 +19,53 @@
       <!-- title table -->
       <div class="title-container shadow rounded">
         <p><b>Angota Ekstrakurikuler {{ $ekskul->nama }}</b></p>
+      </div>
+
+      <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+
+          <div class="card carousel-item">
+            <div class="card-header">
+              Featured
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment 1</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+
+          <div class="card carousel-item">
+            <div class="card-header">
+              Featured
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment 1</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+
+          <div class="card carousel-item">
+            <div class="card-header">
+              Featured
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment 1</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
 
       <!-- table -->
@@ -103,20 +111,7 @@
       gap: 10px;
       align-items: flex-start;
       padding-bottom: 2rem;
-  }
-
-  .description-container-title {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 10px 20px;
-      width: max-content;
-      height: max-content;
       margin-top: 2rem;
-      margin-left: 2rem;
-      background-color: #FFFFFF;
-      font-size: calc(1vw + 0.7rem);
-      font-weight: bold;
   }
 
   .description-container {

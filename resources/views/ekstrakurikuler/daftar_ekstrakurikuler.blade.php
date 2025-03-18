@@ -1,5 +1,67 @@
 @section('title', 'Ekstrakurikuler - SMKN 5 SKA')
 
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Ekstrakurikuler') }}
+        </h2>
+    </x-slot>
+
+    <div class="search-refresh-wrapper">
+        <!-- search box -->
+        <form action="{{ route('ekstrakurikuler') }}" method="GET" class="search-container rounded shadow">
+            <div class="input-group">
+                <input type="text" autocomplete="off" name="search" class="form-control rounded-start" placeholder="Cari ekstrakurikuler..." value="{{ request('search') }}">
+                <button type="submit" class="search-button btn btn-outline-primary">
+                    <img class="search-icon" src="{{ asset('img/search.webp') }}" alt="Search" width="20">
+                </button>
+            </div>
+        </form>
+        
+        @if($ekstrakurikuler->isEmpty())
+            <p class="text-center mt-4">Tidak ada ekstrakurikuler yang ditemukan.</p>
+        @endif
+
+        <!-- refresh button -->
+        <div class="refresh-container" onclick="window.location.href='{{ route('ekstrakurikuler') }}'">
+            <img src="{{ asset('img/refresh.webp') }}" alt="Refresh"> 
+        </div>        
+    </div>
+
+    <!-- card container -->
+    <div class="card-container container-fluid mt-4 mb-5">
+        <div class="row g-4">
+            @foreach ($ekstrakurikuler as $ekskul)
+                <div class="col-md-4">
+                    <div class="card shadow rounded">
+                        <div class="card-body">
+                            <h5 class="card-title"><b>{{ $ekskul->nama }}</b></h5>
+                            <p class="card-guru"><b>G. Pembimbing: {{ $ekskul->guru_pembimbing }}</b></p>
+                            <p class="card-description mt-1">{{ Str::limit($ekskul->deskripsi, 100, '...') }}</p>
+
+                            @if (Auth::user()->role == 'guru')
+                            <br>
+                            @elseif (in_array($ekskul->id, $anggota))
+                                <form action="{{ route('keluar.ekstrakurikuler', $ekskul->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger mt-3 w-100">Keluar</button>
+                                </form>
+                            @else
+                                <form action="{{ route('gabung.ekstrakurikuler', $ekskul->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success mt-3 w-100">Bergabung</button>
+                                </form>
+                            @endif
+
+                            <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" class="btn btn-primary mt-1">Detail</a>
+                        </div>
+                    </div>
+                </div>  
+            @endforeach
+        </div>
+    </div>
+</x-app-layout>
+
 <style>
     .search-refresh-wrapper {
         display: flex;
@@ -91,65 +153,3 @@
         display: block;
     }
 </style>
-
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Ekstrakurikuler') }}
-        </h2>
-    </x-slot>
-
-    <div class="search-refresh-wrapper">
-        <!-- search box -->
-        <form action="{{ route('ekstrakurikuler') }}" method="GET" class="search-container rounded shadow">
-            <div class="input-group">
-                <input type="text" autocomplete="off" name="search" class="form-control rounded-start" placeholder="Cari ekstrakurikuler..." value="{{ request('search') }}">
-                <button type="submit" class="search-button btn btn-outline-primary">
-                    <img class="search-icon" src="{{ asset('img/search.webp') }}" alt="Search" width="20">
-                </button>
-            </div>
-        </form>
-        
-        @if($ekstrakurikuler->isEmpty())
-            <p class="text-center mt-4">Tidak ada ekstrakurikuler yang ditemukan.</p>
-        @endif
-
-        <!-- refresh button -->
-        <div class="refresh-container" onclick="window.location.href='{{ route('ekstrakurikuler') }}'">
-            <img src="{{ asset('img/refresh.webp') }}" alt="Refresh"> 
-        </div>        
-    </div>
-
-    <!-- card container -->
-    <div class="card-container container-fluid mt-4 mb-5">
-        <div class="row g-4">
-            @foreach ($ekstrakurikuler as $ekskul)
-                <div class="col-md-4">
-                    <div class="card shadow rounded">
-                        <div class="card-body">
-                            <h5 class="card-title"><b>{{ $ekskul->nama }}</b></h5>
-                            <p class="card-guru"><b>G. Pembimbing: {{ $ekskul->guru_pembimbing }}</b></p>
-                            <p class="card-description mt-1">{{ Str::limit($ekskul->deskripsi, 100, '...') }}</p>
-
-                            @if (Auth::user()->role == 'guru')
-                            <br>
-                            @elseif (in_array($ekskul->id, $anggota))
-                                <form action="{{ route('keluar.ekstrakurikuler', $ekskul->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger mt-3 w-100">Keluar</button>
-                                </form>
-                            @else
-                                <form action="{{ route('gabung.ekstrakurikuler', $ekskul->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success mt-3 w-100">Bergabung</button>
-                                </form>
-                            @endif
-
-                            <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" class="btn btn-primary">Detail</a>
-                        </div>
-                    </div>
-                </div>  
-            @endforeach
-        </div>
-    </div>
-</x-app-layout>

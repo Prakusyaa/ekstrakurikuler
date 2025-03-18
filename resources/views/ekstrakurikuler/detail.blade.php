@@ -1,85 +1,5 @@
 @section('title', $ekskul->nama . ' - SMKN 5 SKA')
 
-<style>
-    /* carousel */
-    .carousel-inner img {
-        height: 40vw;
-        object-fit: cover;
-        object-position: top;
-    }
-
-    /* card */
-    .card-container {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-        padding-bottom: 2rem;
-    }
-
-    .description-container-title {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        padding: 10px 20px;
-        width: max-content;
-        height: max-content;
-        margin-top: 2rem;
-        margin-left: 2rem;
-        background-color: #FFFFFF;
-        font-size: calc(1vw + 0.7rem);
-        font-weight: bold;
-    }
-
-    .description-container {
-      background-color: #FFFFFF;
-      width: calc(100% - 4rem);
-      max-width: 100vw;
-      padding: 20px;
-      margin: 0rem auto 0rem auto;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      height: max-content;
-  }
-
-  .description-container p {
-    font-size: calc(1vw + 0.7rem);
-  }
-
-  /* table card */
-  .title-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 10px 20px;
-    width: max-content;
-    height: max-content;
-    margin-top: 1rem;
-    margin-left: 2rem;
-    background-color: #FFFFFF;
-    font-size: calc(1vw + 0.7rem);
-    font-weight: bold;
-  }
-
-  .table-container {
-    background-color: #FFFFFF;
-    width: calc(100% - 4rem);
-    max-width: 100vw;
-    padding: 20px;
-    padding-bottom: 5px;
-    margin: 0rem auto 0rem auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    height: max-content;
-  }
-
-  .table-container th {
-    font-size: calc(1vw + 0.5rem);;
-  }
-</style>
-
 <x-app-layout>
     <!-- carousel -->
     <div id="carouselExampleDark" class="carousel carousel-dark slide">
@@ -167,3 +87,83 @@
     </div>
     
 </x-app-layout>
+
+<style>
+  /* carousel */
+  .carousel-inner img {
+      height: 40vw;
+      object-fit: cover;
+      object-position: top;
+  }
+
+  /* card */
+  .card-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+      padding-bottom: 2rem;
+  }
+
+  .description-container-title {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 10px 20px;
+      width: max-content;
+      height: max-content;
+      margin-top: 2rem;
+      margin-left: 2rem;
+      background-color: #FFFFFF;
+      font-size: calc(1vw + 0.7rem);
+      font-weight: bold;
+  }
+
+  .description-container {
+    background-color: #FFFFFF;
+    width: calc(100% - 4rem);
+    max-width: 100vw;
+    padding: 20px;
+    margin: 0rem auto 0rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: max-content;
+}
+
+.description-container p {
+  font-size: calc(1vw + 0.7rem);
+}
+
+/* table card */
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 20px;
+  width: max-content;
+  height: max-content;
+  margin-top: 1rem;
+  margin-left: 2rem;
+  background-color: #FFFFFF;
+  font-size: calc(1vw + 0.7rem);
+  font-weight: bold;
+}
+
+.table-container {
+  background-color: #FFFFFF;
+  width: calc(100% - 4rem);
+  max-width: 100vw;
+  padding: 20px;
+  padding-bottom: 5px;
+  margin: 0rem auto 0rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: max-content;
+}
+
+.table-container th {
+  font-size: calc(1vw + 0.5rem);;
+}
+</style>

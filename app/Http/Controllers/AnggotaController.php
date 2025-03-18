@@ -32,11 +32,19 @@ class AnggotaController extends Controller
         return redirect()->back()->with('success', 'Berhasil keluar');
     }
 
+    public function keluarkan($id, $uid)
+    {
+        Anggota::where('user_id', $uid)
+            ->where('ekskul_id', $id)
+            ->delete();
+
+        return redirect()->back()->with('success', 'Berhasil dikeluarkan.');
+    }
+
     public function ekskulSaya()
     {
         $user = auth()->user();
         
-        // Ambil daftar ekstrakurikuler yang diikuti user
         $ekstrakurikuler = $user->anggota()->with('ekstrakurikuler')->get();
 
         return view('ekstrakurikuler.ekskul_saya', compact('ekstrakurikuler'));

@@ -16,6 +16,20 @@
           <p class="mt-2">{{ $ekskul->deskripsi }}</p>
       </div>
 
+      @if ($ekskul->berita->isNotEmpty())
+          @foreach ($ekskul->berita as $berita)
+          <div class="card mb-3">
+              <div class="card-body">
+                  <h5>{{ $berita->judul }}</h5>
+                  <p>{{ $berita->konten }}</p>
+                  <small>Ditulis oleh: {{ $berita->user->name }}</small>
+              </div>
+          </div>
+          @endforeach
+      @else
+          <p class="text-center mt-4">Tidak ada berita.</p> 
+      @endif
+
       <!-- title table -->
       <div class="title-container shadow rounded">
         <p><b>Angota Ekstrakurikuler {{ $ekskul->nama }}</b></p>
@@ -79,16 +93,18 @@
             @endif
           </tr>
           @foreach ($member as $anggota)
-          <tr>
-              <th> {{ $anggota->nama }} </th>
-              <th> {{ $anggota->created_at->format('d-m-Y') }} </th>
-              @if (Auth::user()->role == 'guru')
-              <th>
-                @csrf
-                  <button type="button" class="btn btn-danger btn-sm w-100 text-wrap">Keluarkan</button>
-              </th>          
-              @endif
-          </tr>
+              <tr>
+                  <th>{{ $anggota->nama }}</th>
+                  <th>{{ $anggota->created_at->format('d-m-Y') }}</th>
+                  @if (Auth::user()->role == 'guru')
+                      <th>
+                        <form action="{{ route('keluarkan.ekstrakurikuler', ['id' => $ekskul->id, 'uid' => $anggota->user_id]) }}" method="POST">
+                          @csrf
+                          <button type="submit" class="btn btn-danger btn-sm w-100 text-wrap">Keluarkan</button>
+                        </form> 
+                      </th>
+                  @endif
+              </tr>
           @endforeach
         </table>
       </div>

@@ -22,10 +22,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-/* Route::middleware(['siswa'])->group(function () {
-    Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
-}); || contoh rute khusus role tertentu || */
-
 Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'index'])
     ->middleware(['auth'])->name('ekstrakurikuler');
 
@@ -34,14 +30,20 @@ Route::get('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'show'])
     ->name('ekstrakurikuler.detail')
     ->middleware(['auth']);
 
-// untuk gabung/keluar ekskul
+// untuk gabung/keluar/kick ekskul
 Route::post('/ekstrakurikuler/{id}/join', [AnggotaController::class, 'gabung'])
-    ->name('gabung.ekstrakurikuler')->middleware('auth');
+    ->name('gabung.ekstrakurikuler')
+    ->middleware('auth');
 
 Route::post('/ekstrakurikuler/{id}/leave', [AnggotaController::class, 'keluar'])
-    ->name('keluar.ekstrakurikuler')->middleware('auth');
+    ->name('keluar.ekstrakurikuler')
+    ->middleware('auth');
 
-//
+Route::post('/ekstrakurikuler/{id}/kick/{uid}', [AnggotaController::class, 'keluarkan'])
+    ->name('keluarkan.ekstrakurikuler')
+    ->middleware('auth');
+
+// ekskul yang diikuti
 Route::get('/ekskul-saya', [AnggotaController::class, 'ekskulSaya'])
     ->middleware(['auth'])
     ->name('ekskul.saya');

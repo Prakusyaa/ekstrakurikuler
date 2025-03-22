@@ -7,40 +7,42 @@
     </h2>
   </x-slot>
 
-    <!-- card container -->
-    <div class="card-container">
+    <div class="content-wrapper">
 
-      <!-- deskripsi ekstrakurikuler -->
-      <div class="description-container shadow rounded">
+      <div class="ekskul-description shadow rounded">
           <b>G. Pembimbing: {{ $ekskul->guru_pembimbing }}</b>
           <p class="mt-2">{{ $ekskul->deskripsi }}</p>
       </div>
 
       @if ($ekskul->berita->isNotEmpty())
+      <div class="section-title shadow rounded">
+        <p><b>Berita Ekstrakurikuler {{ $ekskul->nama }}</b></p>
+      </div>
+
+      <div class="news-container shadow rounded">
           @foreach ($ekskul->berita as $berita)
-          <div class="card mb-3">
+          <div class="news-card card">
               <div class="card-body">
-                  <h5>{{ $berita->judul }}</h5>
+                  <h5><b>{{ $berita->judul }}</b></h5>
                   <p>{{ $berita->konten }}</p>
-                  <small>Ditulis oleh: {{ $berita->user->name }}</small>
+                  <small>Dibuat oleh: {{ $berita->user->name }}</small>
+                  <br>
+                  <small>Dibuat pada tanggal: {{ $berita->created_at->format('d-m-y') }}</small>
               </div>
           </div>
           @endforeach
-      @else
-          <p class="text-center mt-4">Tidak ada berita.</p> 
+      </div>
       @endif
 
-      <!-- title table -->
-      <div class="title-container shadow rounded">
-        <p><b>Angota Ekstrakurikuler {{ $ekskul->nama }}</b></p>
+      <div class="section-title shadow rounded">
+        <p><b>Anggota Ekstrakurikuler {{ $ekskul->nama }}</b></p>
       </div>
 
-      <!-- table -->
-      <div class="table-container shadow rounded">
+      <div class="members-table shadow rounded">
         <table class="table table-fixed table-hover">
           <tr>
             <th scope="col">Nama</th>
-            <th scope="col">Tanggal bergabung</th>
+            <th scope="col">Tanggal Bergabung</th>
             @if (Auth::user()->role == 'guru')
             <th scope="col">Interaksi</th>
             @endif
@@ -66,41 +68,32 @@
 </x-app-layout>
 
 <style>
-  /* carousel */
-  .carousel-inner img {
-      height: 40vw;
-      object-fit: cover;
-      object-position: top;
-  }
-
-  /* card */
-  .card-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: flex-start;
-      padding-bottom: 2rem;
-      margin-top: 2rem;
-  }
-
-  .description-container {
-    background-color: #FFFFFF;
-    width: calc(100% - 4rem);
-    max-width: 100vw;
-    padding: 20px;
-    margin: 0rem auto 0rem auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    height: max-content;
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  padding-bottom: 2rem;
+  margin-top: 2rem;
 }
 
-.description-container p {
+.ekskul-description {
+  background-color: white;
+  width: calc(100% - 4rem);
+  max-width: 100vw;
+  padding: 20px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: max-content;
+}
+
+.ekskul-description p {
   font-size: calc(1vw + 0.7rem);
 }
 
-/* table card */
-.title-container {
+.section-title {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -109,25 +102,37 @@
   height: max-content;
   margin-top: 1rem;
   margin-left: 2rem;
-  background-color: #FFFFFF;
+  background-color: white;
   font-size: calc(1vw + 0.7rem);
   font-weight: bold;
 }
 
-.table-container {
-  background-color: #FFFFFF;
+.members-table {
+  background-color: white;
   width: calc(100% - 4rem);
   max-width: 100vw;
   padding: 20px;
   padding-bottom: 5px;
-  margin: 0rem auto 0rem auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   height: max-content;
 }
 
-.table-container th {
-  font-size: calc(1vw + 0.5rem);;
+.members-table th {
+  font-size: calc(1vw + 0.5rem);
+}
+
+.news-container {
+  margin: 0 auto;
+  background-color: white;
+  width: calc(100% - 4rem);
+  height: 200px;
+  overflow: auto;
+}
+
+.news-card {
+  border-radius: 0px !important;
 }
 </style>

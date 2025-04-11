@@ -24,12 +24,18 @@
 
         <!-- Action Buttons -->
         <div class="action-buttons">
+            @if (Auth::user()->role == 'siswa')
+            <div class="btn-icon refresh shadow rounded" onclick="window.location.href='{{ route('ekstrakurikuler') }}'">
+                <img src="{{ asset('img/refresh.webp') }}" alt="Refresh"> 
+            </div>
+            @else
             <div class="btn-icon refresh shadow rounded" onclick="window.location.href='{{ route('ekstrakurikuler') }}'">
                 <img src="{{ asset('img/refresh.webp') }}" alt="Refresh"> 
             </div>
             <div class="btn-icon add shadow rounded" onclick="">
                 <img src="{{ asset('img/add.webp') }}" alt="Add"> 
             </div>
+            @endif
         </div>
     </div>
 

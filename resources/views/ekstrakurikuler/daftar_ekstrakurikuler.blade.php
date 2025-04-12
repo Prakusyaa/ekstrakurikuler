@@ -32,7 +32,7 @@
             <div class="btn-icon refresh shadow rounded" onclick="window.location.href='{{ route('ekstrakurikuler') }}'">
                 <img src="{{ asset('img/refresh.webp') }}" alt="Refresh"> 
             </div>
-            <div class="btn-icon add shadow rounded" onclick="">
+            <div class="btn-icon add shadow rounded" onclick="window.location.href='{{ route('tambah') }}'">
                 <img src="{{ asset('img/add.webp') }}" alt="Add"> 
             </div>
             @endif

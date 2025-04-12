@@ -19,7 +19,7 @@ class EkstrakurikulerController extends Controller
             $anggota = auth()->user()->anggota()->pluck('ekskul_id')->toArray();
         } else {
             $anggota = [];
-        }        
+        }
 
         return view('ekstrakurikuler.daftar_ekstrakurikuler', compact('ekstrakurikuler', 'anggota'));
     }
@@ -34,5 +34,10 @@ class EkstrakurikulerController extends Controller
             'sgabung' => $user && $ekskul->anggota()->where('user_id', $user->id)->exists(),
             'member' => $ekskul->anggota()->select('user_id', 'nama', 'created_at')->get()
         ]);
+    }
+
+    public function create()
+    {
+        return view('ekstrakurikuler.tambah');
     }
 }

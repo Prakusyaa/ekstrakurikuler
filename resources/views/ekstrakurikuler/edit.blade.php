@@ -1,38 +1,39 @@
-@section('title', 'Dashboard - SMKN 5 SKA')
+@section('title', 'Edit Ekstrakurikuler - SMKN 5 SKA')
 
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Tambah Ekstrakurikuler') }}
+            {{ __('Edit Ekstrakurikuler') }}
         </h2>
     </x-slot>
 
     <!-- form -->
-    <form action="{{ route('ekstrakurikuler.store') }}" method="POST">
+    <form action="{{ route('ekstrakurikuler.update', $ekskul->id) }}" method="POST">
         @csrf
+        @method('PUT')
         <div class="form-container">
             <!-- input nama -->
             <div class="form-group" style="width: 30%;">
                 <x-input-label for="nama" :value="__('Nama Ekstrakurikuler:')" />
-                <x-text-input id="nama" class="block mt-1 w-full shadow" type="text" name="nama" :value="old('nama')" required autofocus />
+                <x-text-input id="nama" class="block mt-1 w-full shadow" type="text" name="nama" :value="old('nama', $ekskul->nama)" required autofocus />
                 <x-input-error :messages="$errors->get('nama')" class="mt-2" />
             </div>
             <div class="form-group" style="width: 30%;">
                 <x-input-label for="pembimbing" :value="__('Guru Pembimbing:')" />
-                <x-text-input id="pembimbing" class="block mt-1 w-full shadow" type="text" name="pembimbing" :value="old('pembimbing')" required />
+                <x-text-input id="pembimbing" class="block mt-1 w-full shadow" type="text" name="pembimbing" :value="old('pembimbing', $ekskul->guru_pembimbing)" required />
                 <x-input-error :messages="$errors->get('pembimbing')" class="mt-2" />
             </div>
             <div class="form-group" style="width: 100%;">
                 <x-input-label for="deskripsi" :value="__('Deskripsi Ekstrakurikuler:')" />
-                <textarea class="form-control shadow-sm" id="deskripsi" name="deskripsi" rows="8" required>{{ old('deskripsi') }}</textarea>
+                <textarea class="form-control shadow-sm" id="deskripsi" name="deskripsi" rows="8" required>{{ old('deskripsi', $ekskul->deskripsi) }}</textarea>
                 <x-input-error :messages="$errors->get('deskripsi')" class="mt-2" />
             </div>
         </div>
 
         <!-- button -->
         <div class="button-container">
-            <button type="submit" class="btn btn-primary">Tambahkan</button>
-            <a href="{{ route('ekstrakurikuler') }}" class="btn btn-danger">Kembali</a>
+            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+            <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" class="btn btn-danger">Kembali</a>
         </div>
     </form>
 </x-app-layout>
@@ -78,4 +79,4 @@
     .btn:hover {
         opacity: 0.9;
     }
-</style>
+</style> 

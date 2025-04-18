@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'index'])
     ->middleware(['auth'])->name('ekstrakurikuler');
 
-// Halaman tambah / edit ekstrakurikuler
+// Halaman tambah ekstrakurikuler
 Route::get('/ekstrakurikuler/tambah', [EkstrakurikulerController::class, 'create'])
     ->middleware(['guru'])->name('tambah');
 
@@ -48,6 +48,22 @@ Route::post('/ekstrakurikuler/{id}/kick/{uid}', [AnggotaController::class, 'kelu
 // Ekstrakurikuler yang Diikuti Siswa
 Route::get('/ekskul-saya', [AnggotaController::class, 'ekskulSaya'])
     ->middleware(['siswa'])->name('ekskul.saya');
+
+// Aksi Tambah Ekstrakurikuler
+Route::post('/ekstrakurikuler', [EkstrakurikulerController::class, 'store'])
+    ->middleware(['guru'])->name('ekstrakurikuler.store');
+
+// Aksi Hapus Ekstrakurikuler
+Route::delete('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'destroy'])
+    ->middleware(['guru'])->name('ekstrakurikuler.destroy');
+
+// Halaman edit ekstrakurikuler
+Route::get('/ekstrakurikuler/{id}/edit', [EkstrakurikulerController::class, 'edit'])
+    ->middleware(['guru'])->name('ekstrakurikuler.edit');
+
+// Aksi Update Ekstrakurikuler
+Route::put('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'update'])
+    ->middleware(['guru'])->name('ekstrakurikuler.update');
 
 // Autentikasi
 require __DIR__.'/auth.php';

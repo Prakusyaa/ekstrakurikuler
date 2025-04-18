@@ -48,23 +48,30 @@
                         <div class="card-body">
                             <h5 class="card-title"><b>{{ $ekskul->nama }}</b></h5>
                             <p class="card-subtitle"><b>G. Pembimbing: {{ $ekskul->guru_pembimbing }}</b></p>
-                            <p class="card-text mt-1">{{ Str::limit($ekskul->deskripsi, 100, '...') }}</p>
+                            <p class="card-text mt-1 mb-2">{{ Str::limit($ekskul->deskripsi, 100, '...') }}</p>
 
                             @if (Auth::user()->role == 'guru')
-                                <br>
+                                <div class="button-group">
+                                    <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" class="btn btn-primary mt-1 w-100">Detail</a>
+                                    <form action="{{ route('ekstrakurikuler.destroy', $ekskul->id) }}" method="POST" class="hapus mt-1 w-100">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger w-100" onclick="return confirm('Apakah Anda yakin ingin menghapus ekstrakurikuler ini?')">Hapus</button>
+                                    </form>
+                                </div>
                             @elseif (in_array($ekskul->id, $anggota))
                                 <form action="{{ route('keluar.ekstrakurikuler', $ekskul->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-danger mt-3 w-100">Keluar</button>
                                 </form>
+                                <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" class="btn btn-primary mt-1">Detail</a>
                             @else
                                 <form action="{{ route('gabung.ekstrakurikuler', $ekskul->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-success mt-3 w-100">Bergabung</button>
                                 </form>
+                                <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" class="btn btn-primary mt-1">Detail</a>
                             @endif
-
-                            <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" class="btn btn-primary mt-1">Detail</a>
                         </div>
                     </div>
                 </div>  
@@ -162,4 +169,68 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+    .button-group {
+        margin-top: 1rem;
+    }
+
+    .button-group .d-flex {
+        gap: 1rem;
+    }
+
+    .hapus {
+        margin: 0;
+    }
+
+    .hapus button {
+        white-space: nowrap;
+    }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteForms = document.querySelectorAll('.delete-form');
+    
+    deleteForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (confirm('Apakah Anda yakin ingin menghapus ekstrakurikuler ini?')) {
+                const formData = new FormData(this);
+                
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Hapus card dari DOM
+                        const card = this.closest('.col-md-4');
+                        card.remove();
+                        
+                        // Tampilkan pesan sukses
+                        alert('Ekstrakurikuler berhasil dihapus');
+                        
+                        // Jika tidak ada card lagi, tampilkan pesan
+                        const remainingCards = document.querySelectorAll('.col-md-4');
+                        if (remainingCards.length === 0) {
+                            const cardSection = document.querySelector('.card-section .row');
+                            cardSection.innerHTML = '<div class="col-12"><p class="text-center mt-4">Tidak ada ekstrakurikuler yang ditemukan.</p></div>';
+                        }
+                    } else {
+                        alert('Gagal menghapus ekstrakurikuler');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan saat menghapus ekstrakurikuler');
+                });
+            }
+        });
+    });
+});
+</script>

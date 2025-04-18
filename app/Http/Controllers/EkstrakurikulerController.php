@@ -19,7 +19,10 @@ class EkstrakurikulerController extends Controller
             $anggota = [];
         }
 
-        return view('ekstrakurikuler.daftar_ekstrakurikuler', compact('ekstrakurikuler', 'anggota'));
+        return view('ekstrakurikuler.daftar_ekstrakurikuler', [
+            'ekstrakurikuler' => $ekstrakurikuler,
+            'anggota' => $anggota
+        ]);
     }
 
     private function search($search)
@@ -44,5 +47,57 @@ class EkstrakurikulerController extends Controller
     public function create()
     {
         return view('ekstrakurikuler.tambah');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'pembimbing' => 'required|string|max:255',
+            'deskripsi' => 'required|string|max:255',
+        ]);
+
+        $ekstrakurikuler = new Ekstrakurikuler();
+        $ekstrakurikuler->nama = $request->nama;
+        $ekstrakurikuler->guru_pembimbing = $request->pembimbing;
+        $ekstrakurikuler->deskripsi = $request->deskripsi;
+        $user = Auth::user();
+        $ekstrakurikuler->created_by = $user->id;
+        $ekstrakurikuler->save();
+
+        return redirect()->route('ekstrakurikuler')->with('success', 'Ekstrakurikuler berhasil ditambahkan');
+    }
+
+    public function destroy($id)
+    {
+        $ekskul = Ekstrakurikuler::findOrFail($id);
+        $ekskul->delete();
+
+        return redirect()->route('ekstrakurikuler')->with('success', 'Ekstrakurikuler berhasil dihapus');
+    }
+
+    public function edit($id)
+    {
+        $ekskul = Ekstrakurikuler::findOrFail($id);
+        return view('ekstrakurikuler.edit', compact('ekskul'));
+
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'pembimbing' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+        ]);
+
+        $ekskul = Ekstrakurikuler::findOrFail($id);
+        $ekskul->nama = $request->nama;
+        $ekskul->guru_pembimbing = $request->pembimbing;
+        $ekskul->deskripsi = $request->deskripsi;
+        $ekskul->save();
+
+        return redirect()->route('ekstrakurikuler.detail', $ekskul->id)
+            ->with('success', 'Ekstrakurikuler berhasil diubah');
     }
 }

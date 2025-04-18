@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Anggota;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AnggotaController extends Controller
 {
     public function gabung($id)
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         // ngecek status user gabung/belum
         if (!$user->anggota()->where('ekskul_id', $id)->exists()) {
@@ -25,7 +26,7 @@ class AnggotaController extends Controller
 
     public function keluar($id)
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         $user->anggota()->where('ekskul_id', $id)->delete();
 
@@ -43,7 +44,7 @@ class AnggotaController extends Controller
 
     public function ekskulSaya()
     {
-        $user = auth()->user();
+        $user = Auth::user();
         
         $ekstrakurikuler = $user->anggota()->with('ekstrakurikuler')->get();
 

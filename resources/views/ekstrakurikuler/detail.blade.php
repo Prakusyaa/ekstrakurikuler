@@ -2,9 +2,18 @@
 
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Ekstrakurikuler {{ __($ekskul->nama) }}
-    </h2>
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+          Ekstrakurikuler {{ __($ekskul->nama) }}
+      </h2>
+
+      @if (Auth::user()->role == 'guru')
+        <div class="d-flex gap-2">
+          <a href="{{ route('ekstrakurikuler.edit', $ekskul->id) }}" class="btn btn-warning">Edit</a>
+          <a href="{{ route('ekstrakurikuler', $ekskul->id) }}" class="btn btn-primary">Tambah Berita</a>
+        </div>
+      @endif
+    </div>
   </x-slot>
 
     <div class="content-wrapper">

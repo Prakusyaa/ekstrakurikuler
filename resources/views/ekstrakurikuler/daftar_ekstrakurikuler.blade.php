@@ -24,14 +24,10 @@
 
         <!-- Action Buttons -->
         <div class="action-buttons">
-            @if (Auth::user()->role == 'siswa')
             <div class="btn-icon refresh shadow rounded" onclick="window.location.href='{{ route('ekstrakurikuler') }}'">
                 <img src="{{ asset('img/refresh.webp') }}" alt="Refresh"> 
             </div>
-            @else
-            <div class="btn-icon refresh shadow rounded" onclick="window.location.href='{{ route('ekstrakurikuler') }}'">
-                <img src="{{ asset('img/refresh.webp') }}" alt="Refresh"> 
-            </div>
+            @if (Auth::user()->role != 'siswa')
             <div class="btn-icon add shadow rounded" onclick="window.location.href='{{ route('tambah') }}'">
                 <img src="{{ asset('img/add.webp') }}" alt="Add"> 
             </div>
@@ -53,20 +49,20 @@
                             @if (Auth::user()->role == 'guru')
                                 <div class="button-group">
                                     <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" class="btn btn-primary mt-1 w-100">Detail</a>
-                                    <form action="{{ route('ekstrakurikuler.destroy', $ekskul->id) }}" method="POST" class="hapus mt-1 w-100">
+                                    <form action="{{ route('ekstrakurikuler.destroy', $ekskul->id) }}" method="POST" class="hapus mt-1 w-100" onsubmit="return confirm('Apakah Anda yakin ingin menghapus ekstrakurikuler ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger w-100" onclick="return confirm('Apakah Anda yakin ingin menghapus ekstrakurikuler ini?')">Hapus</button>
+                                        <button type="submit" class="btn btn-danger w-100">Hapus</button>
                                     </form>
                                 </div>
                             @elseif (in_array($ekskul->id, $anggota))
-                                <form action="{{ route('keluar.ekstrakurikuler', $ekskul->id) }}" method="POST">
+                                <form action="{{ route('keluar.ekstrakurikuler', $ekskul->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin keluar dari ekstrakurikuler {{ $ekskul->nama }}?')">
                                     @csrf
                                     <button type="submit" class="btn btn-danger mt-3 w-100">Keluar</button>
                                 </form>
                                 <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" class="btn btn-primary mt-1">Detail</a>
                             @else
-                                <form action="{{ route('gabung.ekstrakurikuler', $ekskul->id) }}" method="POST">
+                                <form action="{{ route('gabung.ekstrakurikuler', $ekskul->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin bergabung dengan ekstrakurikuler {{ $ekskul->nama }}?')">
                                     @csrf
                                     <button type="submit" class="btn btn-success mt-3 w-100">Bergabung</button>
                                 </form>
@@ -155,12 +151,18 @@
         flex-direction: column;
         height: 100%;
         border: none !important;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
     }
 
     .card-body {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
+        padding: 1.5rem;
     }
 
     .card-title {
@@ -168,14 +170,31 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-subtitle {
+        font-size: 16px;
+        color: #6B7280;
+        margin-bottom: 1rem;
+    }
+
+    .card-text {
+        flex-grow: 1;
+        margin-bottom: 1.5rem;
+        color: #4B5563;
+        line-height: 1.5;
     }
 
     .button-group {
-        margin-top: 1rem;
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
     }
 
-    .button-group .d-flex {
-        gap: 1rem;
+    .button-group .btn {
+        width: 100%;
     }
 
     .hapus {
@@ -186,51 +205,3 @@
         white-space: nowrap;
     }
 </style>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const deleteForms = document.querySelectorAll('.delete-form');
-    
-    deleteForms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            if (confirm('Apakah Anda yakin ingin menghapus ekstrakurikuler ini?')) {
-                const formData = new FormData(this);
-                
-                fetch(this.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Hapus card dari DOM
-                        const card = this.closest('.col-md-4');
-                        card.remove();
-                        
-                        // Tampilkan pesan sukses
-                        alert('Ekstrakurikuler berhasil dihapus');
-                        
-                        // Jika tidak ada card lagi, tampilkan pesan
-                        const remainingCards = document.querySelectorAll('.col-md-4');
-                        if (remainingCards.length === 0) {
-                            const cardSection = document.querySelector('.card-section .row');
-                            cardSection.innerHTML = '<div class="col-12"><p class="text-center mt-4">Tidak ada ekstrakurikuler yang ditemukan.</p></div>';
-                        }
-                    } else {
-                        alert('Gagal menghapus ekstrakurikuler');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Terjadi kesalahan saat menghapus ekstrakurikuler');
-                });
-            }
-        });
-    });
-});
-</script>

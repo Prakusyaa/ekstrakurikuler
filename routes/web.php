@@ -7,6 +7,7 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EkstrakurikulerController;
+use App\Http\Controllers\BeritaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -64,6 +65,14 @@ Route::get('/ekstrakurikuler/{id}/edit', [EkstrakurikulerController::class, 'edi
 // Aksi Update Ekstrakurikuler
 Route::put('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'update'])
     ->middleware(['guru'])->name('ekstrakurikuler.update');
+
+// Halaman tambah berita ekstrakurikuler
+Route::get('/ekstrakurikuler/{id}/berita/tambah', [BeritaController::class, 'create'])
+    ->middleware(['guru'])->name('berita.create');
+
+// Aksi tambah berita ekstrakurikuler
+Route::post('/ekstrakurikuler/{id}/berita', [BeritaController::class, 'store'])
+    ->middleware(['guru'])->name('berita.store');
 
 // Autentikasi
 require __DIR__.'/auth.php';

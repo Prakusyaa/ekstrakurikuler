@@ -10,7 +10,7 @@
       @if (Auth::user()->role == 'guru')
         <div class="d-flex gap-2">
           <a href="{{ route('ekstrakurikuler.edit', $ekskul->id) }}" class="btn btn-warning">Edit</a>
-          <a href="{{ route('ekstrakurikuler', $ekskul->id) }}" class="btn btn-primary">Tambah Berita</a>
+          <a href="{{ route('berita.create', $ekskul->id) }}" class="btn btn-primary">Tambah Berita</a>
         </div>
       @endif
     </div>

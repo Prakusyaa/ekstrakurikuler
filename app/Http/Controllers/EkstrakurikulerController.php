@@ -54,7 +54,7 @@ class EkstrakurikulerController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'pembimbing' => 'required|string|max:255',
-            'deskripsi' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
         ]);
 
         $ekstrakurikuler = new Ekstrakurikuler();

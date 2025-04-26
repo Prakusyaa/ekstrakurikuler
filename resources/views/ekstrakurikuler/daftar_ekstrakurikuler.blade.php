@@ -24,10 +24,14 @@
 
         <!-- Action Buttons -->
         <div class="action-buttons">
+            @if (Auth::user()->role == 'siswa')
             <div class="btn-icon refresh shadow rounded" onclick="window.location.href='{{ route('ekstrakurikuler') }}'">
                 <img src="{{ asset('img/refresh.webp') }}" alt="Refresh"> 
             </div>
-            @if (Auth::user()->role != 'siswa')
+            @else
+            <div class="btn-icon refresh shadow rounded" onclick="window.location.href='{{ route('ekstrakurikuler') }}'">
+                <img src="{{ asset('img/refresh.webp') }}" alt="Refresh"> 
+            </div>
             <div class="btn-icon add shadow rounded" onclick="window.location.href='{{ route('tambah') }}'">
                 <img src="{{ asset('img/add.webp') }}" alt="Add"> 
             </div>
@@ -49,28 +53,70 @@
                             @if (Auth::user()->role == 'guru')
                                 <div class="button-group">
                                     <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" class="btn btn-primary mt-1 w-100">Detail</a>
-                                    <form action="{{ route('ekstrakurikuler.destroy', $ekskul->id) }}" method="POST" class="hapus mt-1 w-100" onsubmit="return confirm('Apakah Anda yakin ingin menghapus ekstrakurikuler ini?')">
+                                    <form action="{{ route('ekstrakurikuler.destroy', $ekskul->id) }}" method="POST" class="hapus mt-1 w-100">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger w-100">Hapus</button>
+                                        <button type="submit" class="btn btn-danger w-100" onclick="return confirm('Apakah Anda yakin ingin menghapus ekstrakurikuler ini?')">Hapus</button>
                                     </form>
                                 </div>
                             @elseif (in_array($ekskul->id, $anggota))
-                                <form action="{{ route('keluar.ekstrakurikuler', $ekskul->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin keluar dari ekstrakurikuler {{ $ekskul->nama }}?')">
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger mt-3 w-100">Keluar</button>
-                                </form>
+                                <button type="button" class="btn btn-danger mt-3 w-100" data-bs-toggle="modal" data-bs-target="#keluarModal{{ $ekskul->id }}">
+                                    Keluar
+                                </button>
                                 <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" class="btn btn-primary mt-1">Detail</a>
                             @else
-                                <form action="{{ route('gabung.ekstrakurikuler', $ekskul->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin bergabung dengan ekstrakurikuler {{ $ekskul->nama }}?')">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success mt-3 w-100">Bergabung</button>
-                                </form>
+                                <button type="button" class="btn btn-success mt-3 w-100" data-bs-toggle="modal" data-bs-target="#gabungModal{{ $ekskul->id }}">
+                                    Bergabung
+                                </button>
                                 <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" class="btn btn-primary mt-1">Detail</a>
                             @endif
                         </div>
                     </div>
                 </div>  
+
+                <!-- Modal for Leaving -->
+                <div class="modal fade" id="keluarModal{{ $ekskul->id }}" tabindex="-1" aria-labelledby="keluarModalLabel{{ $ekskul->id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="keluarModalLabel{{ $ekskul->id }}">Konfirmasi Keluar</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Apakah Anda yakin ingin keluar dari ekstrakurikuler {{ $ekskul->nama }}?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <form action="{{ route('keluar.ekstrakurikuler', $ekskul->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Ya, Keluar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal for Joining -->
+                <div class="modal fade" id="gabungModal{{ $ekskul->id }}" tabindex="-1" aria-labelledby="gabungModalLabel{{ $ekskul->id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="gabungModalLabel{{ $ekskul->id }}">Konfirmasi Bergabung</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Apakah Anda yakin ingin bergabung dengan ekstrakurikuler {{ $ekskul->nama }}?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <form action="{{ route('gabung.ekstrakurikuler', $ekskul->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">Ya, Bergabung</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endforeach
         </div>
     </div>
@@ -204,4 +250,64 @@
     .hapus button {
         white-space: nowrap;
     }
+
+    .modal-content {
+        border-radius: 0.5rem;
+    }
+
+    .modal-header {
+        border-bottom: 1px solid #E5E7EB;
+    }
+
+    .modal-footer {
+        border-top: 1px solid #E5E7EB;
+    }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteForms = document.querySelectorAll('.delete-form');
+    
+    deleteForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (confirm('Apakah Anda yakin ingin menghapus ekstrakurikuler ini?')) {
+                const formData = new FormData(this);
+                
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Hapus card dari DOM
+                        const card = this.closest('.col-md-4');
+                        card.remove();
+                        
+                        // Tampilkan pesan sukses
+                        alert('Ekstrakurikuler berhasil dihapus');
+                        
+                        // Jika tidak ada card lagi, tampilkan pesan
+                        const remainingCards = document.querySelectorAll('.col-md-4');
+                        if (remainingCards.length === 0) {
+                            const cardSection = document.querySelector('.card-section .row');
+                            cardSection.innerHTML = '<div class="col-12"><p class="text-center mt-4">Tidak ada ekstrakurikuler yang ditemukan.</p></div>';
+                        }
+                    } else {
+                        alert('Gagal menghapus ekstrakurikuler');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan saat menghapus ekstrakurikuler');
+                });
+            }
+        });
+    });
+});
+</script>

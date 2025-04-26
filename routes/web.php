@@ -1,21 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GuruController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EkstrakurikulerController;
-use App\Http\Controllers\BeritaController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('index');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

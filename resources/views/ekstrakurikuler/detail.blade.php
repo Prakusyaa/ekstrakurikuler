@@ -7,7 +7,7 @@
                 Ekstrakurikuler {{ __($ekskul->nama) }}
             </h2>
 
-            @if (Auth::user()->role == 'guru')
+            @if (Auth::user()->role == 'guru' || Auth::user()->role == 'admin')
                 <div class="flex gap-2">
                     <a href="{{ route('ekstrakurikuler.edit', $ekskul->id) }}" 
                        class="inline-flex items-center px-4 py-2 bg-yellow-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-yellow-700 focus:bg-yellow-700 active:bg-yellow-900 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">
@@ -92,7 +92,7 @@
                                 <div class="border-l-4 border-blue-500 pl-4 py-2">
                                     <div class="flex justify-between items-start">
                                         <h4 class="text-lg font-medium text-gray-900">{{ $berita->judul }}</h4>
-                                        @if (Auth::user()->role == 'guru')
+                                        @if (Auth::user()->role == 'guru' || Auth::user()->role == 'admin')
                                             <div class="flex gap-2">
                                                 <a href="{{ route('berita.edit', $berita) }}" 
                                                    class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">

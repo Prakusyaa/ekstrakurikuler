@@ -173,7 +173,7 @@
 
                         <!-- Card Footer -->
                         <div class="flex flex-col gap-2">
-                            @if (Auth::user()->role == 'guru')
+                            @if (Auth::user()->role == 'guru' || Auth::user()->role == 'admin')
                                 <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" 
                                    class="btn btn-primary w-full flex items-center justify-center">
                                     <i class="fas fa-info-circle mr-2"></i>

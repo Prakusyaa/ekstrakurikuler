@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Anggota::class, 'user_id');
     }
+
+    public function ekstrakurikuler()
+    {
+        return $this->belongsToMany(Ekstrakurikuler::class, 'anggota_ekstrakurikuler', 'user_id', 'ekskul_id');
+    }
 }

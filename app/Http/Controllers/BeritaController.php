@@ -35,7 +35,7 @@ class BeritaController extends Controller
 
     public function edit(Berita $berita)
     {
-        return view('berita.edit_berita', compact('berita'));
+        return view('ekstrakurikuler.edit_berita', compact('berita'));
     }
 
     public function update(Request $request, Berita $berita)

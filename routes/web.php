@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EkstrakurikulerController;
-use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,7 +28,7 @@ Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'index'])
 
 // Halaman tambah ekstrakurikuler
 Route::get('/ekstrakurikuler/tambah', [EkstrakurikulerController::class, 'create'])
-    ->middleware(['guru'])->name('tambah');
+    ->middleware([CheckRole::class . ':guru,admin'])->name('tambah');
 
 
 // Halaman detail ekstrakurikuler berdasarkan ID
@@ -42,7 +43,7 @@ Route::post('/ekstrakurikuler/{id}/leave', [AnggotaController::class, 'keluar'])
     ->middleware(['siswa'])->name('keluar.ekstrakurikuler');
 
 Route::post('/ekstrakurikuler/{id}/kick/{uid}', [AnggotaController::class, 'keluarkan'])
-    ->middleware(['guru'])->name('keluarkan.ekstrakurikuler');
+    ->middleware([CheckRole::class . ':guru,admin'])->name('keluarkan.ekstrakurikuler');
 
 // Ekstrakurikuler yang Diikuti Siswa
 Route::get('/ekskul-saya', [AnggotaController::class, 'ekskulSaya'])
@@ -50,36 +51,36 @@ Route::get('/ekskul-saya', [AnggotaController::class, 'ekskulSaya'])
 
 // Aksi Tambah Ekstrakurikuler
 Route::post('/ekstrakurikuler', [EkstrakurikulerController::class, 'store'])
-    ->middleware(['guru'])->name('ekstrakurikuler.store');
+    ->middleware([CheckRole::class . ':guru,admin'])->name('ekstrakurikuler.store');
 
 // Aksi Hapus Ekstrakurikuler
 Route::delete('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'destroy'])
-    ->middleware(['guru'])->name('ekstrakurikuler.destroy');
+    ->middleware([CheckRole::class . ':guru,admin'])->name('ekstrakurikuler.destroy');
 
 // Halaman edit ekstrakurikuler
 Route::get('/ekstrakurikuler/{id}/edit', [EkstrakurikulerController::class, 'edit'])
-    ->middleware(['guru'])->name('ekstrakurikuler.edit');
+    ->middleware([CheckRole::class . ':guru,admin'])->name('ekstrakurikuler.edit');
 
 // Aksi Update Ekstrakurikuler
 Route::put('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'update'])
-    ->middleware(['guru'])->name('ekstrakurikuler.update');
+    ->middleware([CheckRole::class . ':guru,admin'])->name('ekstrakurikuler.update');
 
 // Halaman tambah berita ekstrakurikuler
 Route::get('/ekstrakurikuler/{id}/berita/tambah', [BeritaController::class, 'create'])
-    ->middleware(['guru'])->name('berita.create');
+    ->middleware([CheckRole::class . ':guru,admin'])->name('berita.create');
 
 // Aksi tambah berita ekstrakurikuler
 Route::post('/ekstrakurikuler/{id}/berita', [BeritaController::class, 'store'])
-    ->middleware(['guru'])->name('berita.store');
+    ->middleware([CheckRole::class . ':guru,admin'])->name('berita.store');
 
 Route::get('/berita/{berita}/edit', [BeritaController::class, 'edit'])
-    ->middleware(['guru'])->name('berita.edit');
+    ->middleware([CheckRole::class . ':guru,admin'])->name('berita.edit');
 
 Route::put('/berita/{berita}', [BeritaController::class, 'update'])
-    ->middleware(['guru'])->name('berita.update');
+    ->middleware([CheckRole::class . ':guru,admin'])->name('berita.update');
 
 Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])
-    ->middleware(['guru'])->name('berita.destroy');
+    ->middleware([CheckRole::class . ':guru,admin'])->name('berita.destroy');
 
 // Admin Routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {

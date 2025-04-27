@@ -21,4 +21,9 @@ class Ekstrakurikuler extends Model
     {
         return $this->hasMany(Berita::class, 'ekskul_id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'anggota_ekstrakurikuler', 'ekskul_id', 'user_id');
+    }
 }

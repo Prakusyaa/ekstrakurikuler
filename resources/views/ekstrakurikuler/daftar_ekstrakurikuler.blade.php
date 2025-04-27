@@ -92,7 +92,7 @@
 
     <x-slot name="header">
         <div class="flex items-center bg-gradient-to-r from-blue-500 to-blue-300 p-6 rounded-lg shadow mb-6">
-            <img src="{{ asset('app.svg') }}" alt="Logo" class="h-14 w-14 rounded-full bg-white p-2 shadow mr-4">
+            <img src="{{ asset('group.svg') }}" alt="Logo" class="h-14 w-14 rounded-full bg-white p-2 shadow mr-4">
             <div>
                 <h2 class="text-2xl font-bold text-white mb-1">Daftar Ekstrakurikuler</h2>
                 <p class="text-white text-sm">Daftar ekstrakurikuler yang tersedia</p>

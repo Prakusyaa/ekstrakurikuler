@@ -15,8 +15,8 @@ class AdminController extends Controller
     public function index()
     {
         $totalUsers = User::count();
-        $verifiedUsers = User::where('verif', 'verified')->count();
-        $unverifiedUsers = User::where('verif', 'unverified')->count();
+        $verifiedUsers = User::where('verif', 'verified')->get();
+        $unverifiedUsers = User::where('verif', 'unverified')->get();
         $adminUsers = User::where('role', 'admin')->count();
         $guruUsers = User::where('role', 'guru')->count();
         $siswaUsers = User::where('role', 'siswa')->count();

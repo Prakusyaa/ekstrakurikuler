@@ -1,8 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Kelola User') }}
-        </h2>
+        <div class="flex items-center bg-gradient-to-r from-blue-500 to-blue-300 p-6 rounded-lg shadow mb-6">
+            <img src="{{ asset('lock.svg') }}" alt="Logo" class="h-14 w-14 rounded-full bg-white p-2 shadow mr-4">
+            <div>
+                <h2 class="text-2xl font-bold text-white mb-1">Kelola User</h2>
+                <p class="text-white text-sm">Verifikasi User dan Kelola Role User</p>
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-12">

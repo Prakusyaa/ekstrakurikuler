@@ -11,65 +11,75 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <form action="{{ route('ekstrakurikuler.update', $ekskul->id) }}" method="POST" class="space-y-6">
-                        @csrf
-                        @method('PUT')
-                        
-                        <!-- Nama Ekstrakurikuler -->
-                        <div>
-                            <x-input-label for="nama" :value="__('Nama Ekstrakurikuler')" />
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                                    </svg>
+                    <div class="ekskul-edit-page">
+                        <div class="edit-header mb-6">
+                            <h2 class="page-title text-2xl font-bold text-gray-800">Edit Ekstrakurikuler</h2>
+                        </div>
+
+                        <div class="edit-form-container bg-white p-6 rounded-lg shadow">
+                            <form action="{{ route('ekstrakurikuler.update', $ekskul->id) }}" method="POST" class="edit-form space-y-6">
+                                @csrf
+                                @method('PUT')
+                                
+                                <div class="form-group">
+                                    <label for="nama" class="form-label block text-sm font-medium text-gray-700 mb-1">Nama Ekstrakurikuler</label>
+                                    <div class="input-group relative">
+                                        <i class="fas fa-school input-icon absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                        <input type="text" 
+                                               name="nama" 
+                                               id="nama" 
+                                               value="{{ old('nama', $ekskul->nama) }}"
+                                               class="form-input block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                               required>
+                                    </div>
+                                    @error('nama')
+                                        <span class="error-message text-red-500 text-sm mt-1">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                <x-text-input id="nama" class="block mt-1 w-full pl-10" type="text" name="nama" :value="old('nama', $ekskul->nama)" required autofocus />
-                            </div>
-                            <x-input-error :messages="$errors->get('nama')" class="mt-2" />
-                        </div>
 
-                        <!-- Guru Pembimbing -->
-                        <div>
-                            <x-input-label for="pembimbing" :value="__('Guru Pembimbing')" />
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                    </svg>
+                                <div class="form-group">
+                                    <label for="pembimbing" class="form-label block text-sm font-medium text-gray-700 mb-1">Guru Pembimbing</label>
+                                    <div class="input-group relative">
+                                        <i class="fas fa-user-tie input-icon absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                        <input type="text" 
+                                               name="pembimbing" 
+                                               id="pembimbing" 
+                                               value="{{ old('pembimbing', $ekskul->guru_pembimbing) }}"
+                                               class="form-input block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                               required>
+                                    </div>
+                                    @error('pembimbing')
+                                        <span class="error-message text-red-500 text-sm mt-1">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                <x-text-input id="pembimbing" class="block mt-1 w-full pl-10" type="text" name="pembimbing" :value="old('pembimbing', $ekskul->guru_pembimbing)" required />
-                            </div>
-                            <x-input-error :messages="$errors->get('pembimbing')" class="mt-2" />
-                        </div>
 
-                        <!-- Deskripsi -->
-                        <div>
-                            <x-input-label for="deskripsi" :value="__('Deskripsi Ekstrakurikuler')" />
-                            <div class="mt-1">
-                                <textarea id="deskripsi" name="deskripsi" rows="6" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>{{ old('deskripsi', $ekskul->deskripsi) }}</textarea>
-                            </div>
-                            <x-input-error :messages="$errors->get('deskripsi')" class="mt-2" />
-                        </div>
+                                <div class="form-group">
+                                    <label for="deskripsi" class="form-label block text-sm font-medium text-gray-700 mb-1">Deskripsi Ekstrakurikuler</label>
+                                    <div class="input-group">
+                                        <textarea name="deskripsi" 
+                                                  id="deskripsi" 
+                                                  rows="6"
+                                                  class="form-textarea block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                  required>{{ old('deskripsi', $ekskul->deskripsi) }}</textarea>
+                                    </div>
+                                    @error('deskripsi')
+                                        <span class="error-message text-red-500 text-sm mt-1">{{ $message }}</span>
+                                    @enderror
+                                </div>
 
-                        <!-- Tombol Aksi -->
-                        <div class="flex items-center justify-end gap-4">
-                            <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" 
-                               class="inline-flex items-center px-4 py-2 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest hover:bg-gray-300 focus:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                                </svg>
-                                Kembali
-                            </a>
-                            <button type="submit" 
-                                    class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                Simpan Perubahan
-                            </button>
+                                <div class="form-actions flex justify-end space-x-4">
+                                    <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" 
+                                       class="btn-cancel inline-flex items-center px-4 py-2 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest hover:bg-gray-300 focus:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                        <i class="fas fa-times mr-2"></i> Batal
+                                    </a>
+                                    <button type="submit" 
+                                            class="btn-save inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                        <i class="fas fa-save mr-2"></i> Simpan Perubahan
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

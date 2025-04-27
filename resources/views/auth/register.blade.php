@@ -23,6 +23,9 @@
                 <div>
                     <x-input-label for="name" :value="__('Nama Lengkap')" />
                     <div class="mt-1 relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
                         <x-text-input id="name" class="block w-full pl-10" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" placeholder="Masukkan nama lengkap" />
                     </div>
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -32,6 +35,9 @@
                 <div>
                     <x-input-label for="email" :value="__('Email')" />
                     <div class="mt-1 relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-envelope text-gray-400"></i>
+                        </div>
                         <x-text-input id="email" class="block w-full pl-10" type="email" name="email" :value="old('email')" required autocomplete="username" placeholder="Input Email" />
                     </div>
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -41,6 +47,9 @@
                 <div>
                     <x-input-label for="password" :value="__('Password')" />
                     <div class="mt-1 relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-400"></i>
+                        </div>
                         <x-text-input id="password" class="block w-full pl-10" type="password" name="password" required autocomplete="new-password" placeholder="••••••••" />
                     </div>
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
@@ -50,6 +59,9 @@
                 <div>
                     <x-input-label for="password_confirmation" :value="__('Konfirmasi Password')" />
                     <div class="mt-1 relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-400"></i>
+                        </div>
                         <x-text-input id="password_confirmation" class="block w-full pl-10" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="••••••••" />
                     </div>
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />

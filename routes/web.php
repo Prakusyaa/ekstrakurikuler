@@ -71,5 +71,14 @@ Route::get('/ekstrakurikuler/{id}/berita/tambah', [BeritaController::class, 'cre
 Route::post('/ekstrakurikuler/{id}/berita', [BeritaController::class, 'store'])
     ->middleware(['guru'])->name('berita.store');
 
+Route::get('/berita/{berita}/edit', [BeritaController::class, 'edit'])
+    ->middleware(['guru'])->name('berita.edit');
+
+Route::put('/berita/{berita}', [BeritaController::class, 'update'])
+    ->middleware(['guru'])->name('berita.update');
+
+Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])
+    ->middleware(['guru'])->name('berita.destroy');
+
 // Autentikasi
 require __DIR__.'/auth.php';

@@ -71,9 +71,17 @@ class EkstrakurikulerController extends Controller
     public function destroy($id)
     {
         $ekskul = Ekstrakurikuler::findOrFail($id);
+        
+        // Hapus semua berita terkait
+        $ekskul->berita()->delete();
+        
+        // Hapus semua anggota terkait
+        $ekskul->anggota()->delete();
+        
+        // Hapus ekstrakurikuler
         $ekskul->delete();
 
-        return redirect()->route('ekstrakurikuler')->with('success', 'Ekstrakurikuler berhasil dihapus');
+        return redirect()->route('ekstrakurikuler')->with('success', 'Ekstrakurikuler dan semua data terkait berhasil dihapus');
     }
 
     public function edit($id)

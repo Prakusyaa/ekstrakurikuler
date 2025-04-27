@@ -27,6 +27,9 @@
                     <div>
                         <x-input-label for="email" :value="__('Email')" />
                         <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope text-gray-400"></i>
+                            </div>
                             <x-text-input id="email" class="block w-full pl-10" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" placeholder="Input Email" />
                         </div>
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -36,6 +39,9 @@
                     <div>
                         <x-input-label for="password" :value="__('Password')" />
                         <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
                             <x-text-input id="password" class="block w-full pl-10" type="password" name="password" required autocomplete="current-password" placeholder="••••••••" />
                         </div>
                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
@@ -75,14 +81,14 @@
                     </div>
 
                     <div class="mt-6 mb-6">
-                        <a href="{{ route('register') }}" class="btn inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-full justify-center py-3">
+                        <a href="{{ route('register') }}" class="btn inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-full justify-center">
                             {{ __('Daftar Sekarang') }}
                         </a>
                     </div>
                 </div>
             </div>
             <div class="position-absolute bottom-0 start-0 px-6 py-4">
-                <a href="{{ route('index') }}" class="btn inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-full justify-center py-3">
+                <a href="{{ route('index') }}" class="btn inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-full justify-center">
                     Kembali ke menu utama
                 </a>
             </div>

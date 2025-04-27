@@ -6,6 +6,7 @@ use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EkstrakurikulerController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -79,6 +80,15 @@ Route::put('/berita/{berita}', [BeritaController::class, 'update'])
 
 Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])
     ->middleware(['guru'])->name('berita.destroy');
+
+// Admin Routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    // Dashboard untuk kelola user
+    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::post('/verify/{user}', [AdminController::class, 'verifyUser'])->name('admin.verify');
+    Route::post('/unverify/{user}', [AdminController::class, 'unverifyUser'])->name('admin.unverify');
+    Route::post('/update-role/{user}', [AdminController::class, 'updateRole'])->name('admin.update-role');
+});
 
 // Autentikasi
 require __DIR__.'/auth.php';

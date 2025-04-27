@@ -25,6 +25,12 @@
                         {{ __('Ekskul yang Diikuti') }}
                     </x-nav-link>                    
                     @endif
+
+                    @if (Auth::user()->role == 'admin')
+                    <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                        {{ __('Verifikasi User') }}
+                    </x-nav-link>
+                    @endif
                     
                 </div>
             </div>
@@ -87,6 +93,12 @@
             @if (Auth::user()->role == 'siswa')
             <x-responsive-nav-link :href="route('ekskul.saya')" :active="request()->routeIs('ekskul.saya')">    
                 {{ __('Ekskul yang Diikuti') }}
+            </x-responsive-nav-link>
+            @endif
+
+            @if (Auth::user()->role == 'admin')
+            <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                {{ __('Verifikasi User') }}
             </x-responsive-nav-link>
             @endif
             

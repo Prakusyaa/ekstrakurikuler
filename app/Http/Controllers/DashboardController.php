@@ -2,27 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Anggota;
+use App\Models\User;
 use App\Models\Berita;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Ekstrakurikuler;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // Cari semua ekskul yang diikuti user
-        $ekskul_ids = Anggota::where('user_id', Auth::id())->pluck('ekskul_id');
-
-        // Cari berita dari ekskul-ekskul tersebut
-        $berita = Berita::with('user')
-            ->whereIn('ekskul_id', $ekskul_ids)
+        $berita = Berita::with(['user', 'ekstrakurikuler'])
             ->latest()
             ->take(5)
             ->get();
 
-        // Hitung jumlah ekstrakurikuler yang diikuti
-        $ekskul = Anggota::where('user_id', Auth::id())->count();
+        $ekskul = Ekstrakurikuler::count();
 
-        return view('dashboard', compact('ekskul', 'berita'));
+        if (auth()->user()->role === 'admin') {
+            // Statistik User
+            $totalUsers = User::count();
+            $verifiedUsers = User::where('verif', 'verified')->count();
+            $unverifiedUsers = User::where('verif', 'unverified')->count();
+            
+            // Statistik Role
+            $adminUsers = User::where('role', 'admin')->count();
+            $guruUsers = User::where('role', 'guru')->count();
+            $siswaUsers = User::where('role', 'siswa')->count();
+            
+            // Statistik Ekstrakurikuler
+            $totalEkstrakurikuler = $ekskul;
+
+            return view('dashboard', compact(
+                'berita',
+                'ekskul',
+                'totalUsers',
+                'verifiedUsers',
+                'unverifiedUsers',
+                'adminUsers',
+                'guruUsers',
+                'siswaUsers',
+                'totalEkstrakurikuler'
+            ));
+        }
+
+        return view('dashboard', compact('berita', 'ekskul'));
     }
 }

@@ -1,4 +1,4 @@
-@section('title', 'Ekstrakurikuler - SMKN 5 SKA')
+@section('title', 'Ekstrakurikuler - EkstrakurikulerKu.id')
 
 <x-app-layout>
     <!-- Modal Konfirmasi -->

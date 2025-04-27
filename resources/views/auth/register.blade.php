@@ -1,3 +1,5 @@
+@section('title', 'Register - EkstrakurikulerKu.id')
+
 <x-guest-layout>
     <div class="container">
         <div class="w-full max-w-md">
@@ -68,7 +70,7 @@
                 </div>
 
                 <div>
-                    <x-primary-button class="w-full justify-center py-3">
+                    <x-primary-button class="w-full justify-center py-3 bg-blue-600 hover:bg-blue-700 focus:bg-blue-700">
                         {{ __('Daftar') }}
                     </x-primary-button>
                 </div>
@@ -87,14 +89,14 @@
                 </div>
 
                 <div class="mt-6">
-                    <a href="{{ route('login') }}" class="btn inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-full justify-center py-3">
+                    <a href="{{ route('login') }}" class="btn inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150 w-full justify-center py-3">
                         {{ __('Masuk') }}
                     </a>
                 </div>
             </div>
         </div>
         <div class="position-absolute bottom-0 start-0 px-6 py-4">
-            <a href="{{ route('index') }}" class="btn inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-full justify-center py-3">
+            <a href="{{ route('index') }}" class="btn inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150 w-full justify-center py-3">
                 Kembali ke menu utama
             </a>
         </div>

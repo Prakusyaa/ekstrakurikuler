@@ -23,8 +23,8 @@ class DashboardController extends Controller
 
         if ($user->role === 'admin') {
             $totalUsers = User::count();
-            $verifiedUsers = User::where('is_verified', true)->count();
-            $unverifiedUsers = User::where('is_verified', false)->count();
+            $verifiedUsers = User::where('verif', 'verified')->count();
+            $unverifiedUsers = User::where('verif', 'unverified')->count();
             $adminUsers = User::where('role', 'admin')->count();
             $guruUsers = User::where('role', 'guru')->count();
             $siswaUsers = User::where('role', 'siswa')->count();

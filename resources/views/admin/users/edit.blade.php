@@ -49,7 +49,7 @@
 
                 <div class="mb-4">
                     <label class="flex items-center">
-                        <input type="checkbox" name="is_verified" value="1" {{ old('is_verified', $user->is_verified) ? 'checked' : '' }}
+                        <input type="checkbox" name="verif" value="verified" {{ old('verif', $user->verif) === 'verified' ? 'checked' : '' }}
                             class="form-checkbox h-5 w-5 text-indigo-600">
                         <span class="ml-2 text-gray-700">Verified</span>
                     </label>

@@ -1,4 +1,4 @@
-@section('title', $ekskul->nama . ' - SMKN 5 SKA')
+@section('title', $ekskul->nama . ' - EkstrakurikulerKu.id')
 
 <x-app-layout>
     <x-slot name="header">

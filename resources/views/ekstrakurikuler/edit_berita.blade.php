@@ -1,4 +1,4 @@
-@section('title', 'Edit Berita - SMKN 5 SKA')
+@section('title', 'Edit Berita - EkstrakurikulerKu.id')
 
 <x-app-layout>
     <x-slot name="header">

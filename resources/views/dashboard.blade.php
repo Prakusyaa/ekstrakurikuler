@@ -128,7 +128,7 @@
                         </div>
                         <div>
                             <div class="text-gray-500 text-sm">Berita Saya</div>
-                            <div class="text-2xl font-bold text-gray-900">{{ $userNews }}</div>
+                            <div class="text-2xl font-bold text-gray-900">{{ $userNewsCount }}</div>
                         </div>
                     </div>
                 </div>

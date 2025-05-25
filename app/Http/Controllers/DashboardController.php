@@ -40,12 +40,17 @@ class DashboardController extends Controller
                 'latestNews'
             ));
         } elseif ($user->role === 'guru') {
-            $totalNews = Berita::where('user_id', $user->id)->count();
-            $userNews = Berita::where('user_id', $user->id)->count();
+            $totalNews = Berita::count();
+            $userNewsCount = Berita::where('created_by', $user->id)->count();
+            $userNews = Berita::where('created_by', $user->id)
+                ->with(['user', 'ekstrakurikuler'])
+                ->latest()
+                ->get();
 
             return view('dashboard', compact(
                 'totalEkstrakurikuler',
                 'totalNews',
+                'userNewsCount',
                 'userNews',
                 'latestNews'
             ));

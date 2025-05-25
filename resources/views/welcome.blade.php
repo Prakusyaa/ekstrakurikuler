@@ -1,23 +1,35 @@
+{{-- 
+    File: welcome.blade.php
+    Deskripsi: Halaman landing page utama yang menampilkan informasi tentang sistem ekstrakurikuler
+    Author: Tim Pengembang
+    Tanggal: 2024
+--}}
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
+        {{-- Meta tags dan konfigurasi dasar --}}
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/svg+xml" href="{{ asset('app.svg') }}">
         <title>EkstrakurikulerKu.id - Sistem Manajemen Ekstrakurikuler</title>
+
+        {{-- Font dan CSS --}}
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <!-- Navbar -->
+        {{-- Navbar - Menu navigasi utama --}}
         <nav class="bg-white shadow-lg fixed w-full z-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-20">
+                    {{-- Logo dan Nama Aplikasi --}}
                     <div class="flex items-center">
                         <a href="/" class="flex items-center">
                             <svg class="h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                {{-- SVG Path untuk logo --}}
                                 <g>
                                     <path xmlns="http://www.w3.org/2000/svg" d="M151.245,222.446C148.054,237.039,135.036,248,119.5,248c-4.142,0-7.5,3.357-7.5,7.5s3.358,7.5,7.5,7.5   c23.774,0,43.522-17.557,46.966-40.386c14.556-1.574,27.993-8.06,38.395-18.677c2.899-2.959,2.85-7.708-0.109-10.606   c-2.958-2.897-7.707-2.851-10.606,0.108C184.947,202.829,172.643,208,159.5,208c-26.743,0-48.5-21.757-48.5-48.5   c0-4.143-3.358-7.5-7.5-7.5s-7.5,3.357-7.5,7.5C96,191.715,120.119,218.384,151.245,222.446z"/>
                                     <path xmlns="http://www.w3.org/2000/svg" d="M183,287.5c0-4.143-3.358-7.5-7.5-7.5c-35.014,0-63.5,28.486-63.5,63.5c0,0.362,0.013,0.725,0.019,1.088   C109.23,344.212,106.39,344,103.5,344c-4.142,0-7.5,3.357-7.5,7.5s3.358,7.5,7.5,7.5c26.743,0,48.5,21.757,48.5,48.5   c0,4.143,3.358,7.5,7.5,7.5s7.5-3.357,7.5-7.5c0-26.611-16.462-49.437-39.731-58.867c-0.178-1.699-0.269-3.418-0.269-5.133   c0-26.743,21.757-48.5,48.5-48.5C179.642,295,183,291.643,183,287.5z"/>
@@ -29,6 +41,8 @@
                             <span class="ml-2 text-xl font-bold text-gray-800">EkstrakurikulerKu.id</span>
                         </a>
                     </div>
+
+                    {{-- Menu Navigasi --}}
                     <div class="flex items-center space-x-4">
                         @if (Route::has('login'))
                             @auth
@@ -51,7 +65,7 @@
             </div>
         </nav>
 
-        <!-- Hero Section -->
+        {{-- Hero Section - Bagian utama landing page --}}
         <div class="pt-20">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div class="text-center">
@@ -66,11 +80,11 @@
             </div>
         </div>
 
-        <!-- Features Section -->
+        {{-- Fitur Section - Menampilkan fitur-fitur utama --}}
         <div class="bg-gray-50 py-12">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-                    <!-- Feature 1 -->
+                    {{-- Fitur 1: Manajemen User --}}
                     <div class="bg-white p-6 rounded-lg shadow-md">
                         <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
                             <i class="fas fa-users text-xl"></i>
@@ -81,7 +95,7 @@
                         </p>
                     </div>
 
-                    <!-- Feature 2 -->
+                    {{-- Fitur 2: Berita & Informasi --}}
                     <div class="bg-white p-6 rounded-lg shadow-md">
                         <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
                             <i class="fas fa-newspaper text-xl"></i>
@@ -92,7 +106,7 @@
                         </p>
                     </div>
 
-                    <!-- Feature 3 -->
+                    {{-- Fitur 3: Cepat & Mudah --}}
                     <div class="bg-white p-6 rounded-lg shadow-md">
                         <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
                             <i class="fas fa-rocket text-x1"></i>
@@ -106,7 +120,7 @@
             </div>
         </div>
 
-        <!-- CTA Section -->
+        {{-- CTA Section - Call to Action --}}
         <div class="bg-white py-12">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center">

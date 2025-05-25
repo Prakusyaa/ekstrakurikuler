@@ -108,4 +108,47 @@ class EkstrakurikulerController extends Controller
         return redirect()->route('ekstrakurikuler.detail', $ekskul->id)
             ->with('success', 'Ekstrakurikuler berhasil diubah');
     }
+
+    /**
+     * Keluar dari ekstrakurikuler
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function leave($id)
+    {
+        $ekstrakurikuler = Ekstrakurikuler::findOrFail($id);
+        $user = Auth::user();
+        
+        // Hapus relasi user dengan ekstrakurikuler
+        $ekstrakurikuler->users()->detach($user->id);
+        
+        return redirect()->route('ekstrakurikuler')
+            ->with('success', 'Anda telah keluar dari ekstrakurikuler ' . $ekstrakurikuler->nama);
+    }
+
+    /**
+     * Bergabung ke ekstrakurikuler
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function join($id)
+    {
+        $ekstrakurikuler = Ekstrakurikuler::findOrFail($id);
+        $user = Auth::user();
+        
+        // Cek apakah user sudah bergabung
+        if ($ekstrakurikuler->users()->where('user_id', $user->id)->exists()) {
+            return redirect()->back()->with('error', 'Anda sudah bergabung dengan ekstrakurikuler ini');
+        }
+        
+        // Tambah relasi user dengan ekstrakurikuler
+        $ekstrakurikuler->users()->attach($user->id, [
+            'nama' => $user->name
+        ]);
+        
+        return redirect()->route('ekstrakurikuler')
+            ->with('success', 'Anda telah bergabung dengan ekstrakurikuler ' . $ekstrakurikuler->nama);
+    }
 }

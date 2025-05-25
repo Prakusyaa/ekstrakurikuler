@@ -1,6 +1,14 @@
+{{-- 
+    File: ekskul_saya.blade.php
+    Deskripsi: Halaman yang menampilkan daftar ekstrakurikuler yang diikuti oleh siswa
+    Author: Tim Pengembang
+    Tanggal: 2024
+--}}
+
 @section('title', 'Ekstrakurikuler Saya - EkstrakurikulerKu.id')
 
 <x-app-layout>
+    {{-- Header Section - Menampilkan judul dan deskripsi halaman --}}
     <x-slot name="header">
         <div class="flex items-center bg-gradient-to-r from-blue-500 to-blue-300 p-6 rounded-lg shadow mb-6">
             <img src="{{ asset('app.svg') }}" alt="Logo" class="h-14 w-14 rounded-full bg-white p-2 shadow mr-4">
@@ -11,6 +19,7 @@
         </div>
     </x-slot>
 
+    {{-- Empty State - Tampilan ketika belum ada ekstrakurikuler --}}
     @if($ekstrakurikuler->isEmpty())
         <div class="text-center mt-8">
             <p class="text-gray-500 mb-4">Anda belum mengikuti ekstrakurikuler apapun.</p>
@@ -18,12 +27,13 @@
         </div>
     @endif
 
-    <!-- Card Section -->
+    {{-- Card Section - Menampilkan daftar ekstrakurikuler --}}
     <div class="container mx-auto mt-8 mb-12 px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach ($ekstrakurikuler as $ekskul)
+                {{-- Card Ekstrakurikuler --}}
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <!-- Card Header -->
+                    {{-- Card Header - Menampilkan nama ekstrakurikuler --}}
                     <div class="bg-blue-500 p-4">
                         <div class="flex items-center">
                             <div class="bg-white p-2 rounded-full mr-3">
@@ -33,8 +43,9 @@
                         </div>
                     </div>
 
-                    <!-- Card Body -->
+                    {{-- Card Body - Menampilkan informasi ekstrakurikuler --}}
                     <div class="p-6">
+                        {{-- Informasi Guru Pembimbing --}}
                         <div class="mb-4">
                             <div class="flex items-center text-gray-600 mb-2">
                                 <i class="fas fa-chalkboard-teacher mr-2"></i>
@@ -43,6 +54,7 @@
                             <p class="text-gray-800">{{ $ekskul->ekstrakurikuler->guru_pembimbing }}</p>
                         </div>
 
+                        {{-- Informasi Deskripsi --}}
                         <div class="mb-6">
                             <div class="flex items-center text-gray-600 mb-2">
                                 <i class="fas fa-info-circle mr-2"></i>
@@ -51,9 +63,9 @@
                             <p class="text-gray-700 line-clamp-3">{{ $ekskul->ekstrakurikuler->deskripsi }}</p>
                         </div>
 
-                        <!-- Card Footer -->
+                        {{-- Card Footer - Tombol Aksi --}}
                         <div class="flex flex-col gap-2">
-                            <!-- Modal Keluar -->
+                            {{-- Modal Konfirmasi Keluar --}}
                             <div class="modal fade" id="leaveModal{{ $ekskul->ekstrakurikuler->id }}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -66,7 +78,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                            <form action="{{ route('keluar.ekstrakurikuler', $ekskul->ekstrakurikuler->id) }}" method="POST" class="d-inline">
+                                            <form action="{{ route('ekstrakurikuler.leave', $ekskul->ekstrakurikuler->id) }}" method="POST" class="d-inline">
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger">Ya, Keluar</button>
                                             </form>
@@ -75,7 +87,7 @@
                                 </div>
                             </div>
 
-                            <!-- Tombol Aksi -->
+                            {{-- Tombol Keluar --}}
                             <button type="button" 
                                     class="btn btn-danger w-full flex items-center justify-center"
                                     data-bs-toggle="modal"
@@ -83,6 +95,8 @@
                                 <i class="fas fa-sign-out-alt mr-2"></i>
                                 Keluar
                             </button>
+
+                            {{-- Tombol Detail --}}
                             <a href="{{ route('ekstrakurikuler.detail', $ekskul->ekstrakurikuler->id) }}" 
                                class="btn btn-primary w-full flex items-center justify-center">
                                 <i class="fas fa-info-circle mr-2"></i>
@@ -96,7 +110,9 @@
     </div>
 </x-app-layout>
 
+{{-- Style untuk Komponen --}}
 <style>
+    /* Text Truncation */
     .line-clamp-3 {
         display: -webkit-box;
         -webkit-line-clamp: 3;
@@ -104,6 +120,7 @@
         overflow: hidden;
     }
 
+    /* Empty State */
     .empty-state {
         max-width: 500px;
         margin: 0 auto;
@@ -113,6 +130,7 @@
         color: #9CA3AF;
     }
 
+    /* Button Styles */
     .btn {
         transition: all 0.3s ease;
     }
@@ -121,6 +139,7 @@
         transform: translateY(-2px);
     }
 
+    /* Primary Button */
     .btn-primary {
         background-color: #2563EB;
         border-color: #2563EB;
@@ -131,6 +150,7 @@
         border-color: #1D4ED8;
     }
 
+    /* Danger Button */
     .btn-danger {
         background-color: #DC2626;
         border-color: #DC2626;

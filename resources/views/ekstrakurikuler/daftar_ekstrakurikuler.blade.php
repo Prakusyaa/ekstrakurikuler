@@ -1,7 +1,14 @@
+{{-- 
+    File: daftar_ekstrakurikuler.blade.php
+    Deskripsi: Halaman yang menampilkan daftar ekstrakurikuler yang tersedia
+    Author: Tim Pengembang
+    Tanggal: 2024
+--}}
+
 @section('title', 'Ekstrakurikuler - EkstrakurikulerKu.id')
 
 <x-app-layout>
-    <!-- Modal Konfirmasi -->
+    {{-- Modal Konfirmasi - Digunakan untuk konfirmasi umum --}}
     <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -23,7 +30,7 @@
         </div>
     </div>
 
-    <!-- Modal Hapus -->
+    {{-- Modal Hapus - Digunakan untuk konfirmasi penghapusan ekstrakurikuler --}}
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -46,7 +53,7 @@
         </div>
     </div>
 
-    <!-- Modal Keluar -->
+    {{-- Modal Keluar - Digunakan untuk konfirmasi keluar dari ekstrakurikuler --}}
     <div class="modal fade" id="leaveModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -68,7 +75,7 @@
         </div>
     </div>
 
-    <!-- Modal Gabung -->
+    {{-- Modal Gabung - Digunakan untuk konfirmasi bergabung dengan ekstrakurikuler --}}
     <div class="modal fade" id="joinModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -90,6 +97,7 @@
         </div>
     </div>
 
+    {{-- Header Section - Menampilkan judul dan deskripsi halaman --}}
     <x-slot name="header">
         <div class="flex items-center bg-gradient-to-r from-blue-500 to-blue-300 p-6 rounded-lg shadow mb-6">
             <img src="{{ asset('group.svg') }}" alt="Logo" class="h-14 w-14 rounded-full bg-white p-2 shadow mr-4">
@@ -100,8 +108,9 @@
         </div>
     </x-slot>
 
+    {{-- Top Section - Berisi fitur pencarian dan tombol aksi --}}
     <div class="top-section">
-        <!-- Search Box -->
+        {{-- Form Pencarian --}}
         <form action="{{ route('ekstrakurikuler') }}" method="GET" class="search-form">
             <div class="search-container">
                 <div class="search-icon">
@@ -119,11 +128,12 @@
             </div>
         </form>
         
+        {{-- Pesan jika tidak ada ekstrakurikuler --}}
         @if($ekstrakurikuler->isEmpty())
             <p class="empty-message">Tidak ada ekstrakurikuler yang ditemukan.</p>
         @endif
 
-        <!-- Action Buttons -->
+        {{-- Tombol Aksi - Refresh dan Tambah --}}
         <div class="action-buttons">
             <button onclick="window.location.href='{{ route('ekstrakurikuler') }}'" 
                     class="action-button refresh">
@@ -138,12 +148,13 @@
         </div>
     </div>
 
-    <!-- Card Section -->
+    {{-- Card Section - Menampilkan daftar ekstrakurikuler dalam bentuk card --}}
     <div class="container mx-auto mt-8 mb-12 px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach ($ekstrakurikuler as $ekskul)
+                {{-- Card Ekstrakurikuler --}}
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <!-- Card Header -->
+                    {{-- Header Card - Menampilkan nama ekstrakurikuler --}}
                     <div class="bg-blue-500 p-4">
                         <div class="flex items-center">
                             <div class="bg-white p-2 rounded-full mr-3">
@@ -153,8 +164,9 @@
                         </div>
                     </div>
 
-                    <!-- Card Body -->
+                    {{-- Body Card - Menampilkan informasi detail ekstrakurikuler --}}
                     <div class="p-6">
+                        {{-- Informasi Guru Pembimbing --}}
                         <div class="mb-4">
                             <div class="flex items-center text-gray-600 mb-2">
                                 <i class="fas fa-chalkboard-teacher mr-2"></i>
@@ -163,6 +175,7 @@
                             <p class="text-gray-800">{{ $ekskul->guru_pembimbing }}</p>
                         </div>
 
+                        {{-- Deskripsi Ekstrakurikuler --}}
                         <div class="mb-6">
                             <div class="flex items-center text-gray-600 mb-2">
                                 <i class="fas fa-info-circle mr-2"></i>
@@ -171,9 +184,10 @@
                             <p class="text-gray-700 line-clamp-3">{{ $ekskul->deskripsi }}</p>
                         </div>
 
-                        <!-- Card Footer -->
+                        {{-- Footer Card - Tombol aksi berdasarkan role pengguna --}}
                         <div class="flex flex-col gap-2">
                             @if (Auth::user()->role == 'guru' || Auth::user()->role == 'admin')
+                                {{-- Tombol untuk Guru dan Admin --}}
                                 <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" 
                                    class="btn btn-primary w-full flex items-center justify-center">
                                     <i class="fas fa-info-circle mr-2"></i>
@@ -187,6 +201,7 @@
                                     Hapus
                                 </button>
                             @elseif (in_array($ekskul->id, $anggota))
+                                {{-- Tombol untuk Anggota Ekstrakurikuler --}}
                                 <button type="button" 
                                         class="btn btn-danger w-full flex items-center justify-center"
                                         data-bs-toggle="modal"
@@ -200,6 +215,7 @@
                                     Detail
                                 </a>
                             @else
+                                {{-- Tombol untuk Siswa yang Belum Bergabung --}}
                                 <button type="button" 
                                         class="btn btn-success w-full flex items-center justify-center"
                                         data-bs-toggle="modal"
@@ -217,7 +233,7 @@
                     </div>
                 </div>
 
-                <!-- Modal Hapus -->
+                {{-- Modal Hapus untuk setiap ekstrakurikuler --}}
                 <div class="modal fade" id="deleteModal{{ $ekskul->id }}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -240,7 +256,7 @@
                     </div>
                 </div>
 
-                <!-- Modal Keluar -->
+                {{-- Modal Keluar untuk setiap ekstrakurikuler --}}
                 <div class="modal fade" id="leaveModal{{ $ekskul->id }}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -253,7 +269,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <form action="{{ route('keluar.ekstrakurikuler', $ekskul->id) }}" method="POST" class="d-inline">
+                                <form action="{{ route('ekstrakurikuler.leave', $ekskul->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     <button type="submit" class="btn btn-danger">Ya, Keluar</button>
                                 </form>
@@ -262,7 +278,7 @@
                     </div>
                 </div>
 
-                <!-- Modal Gabung -->
+                {{-- Modal Gabung untuk setiap ekstrakurikuler --}}
                 <div class="modal fade" id="joinModal{{ $ekskul->id }}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -275,7 +291,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <form action="{{ route('gabung.ekstrakurikuler', $ekskul->id) }}" method="POST" class="d-inline">
+                                <form action="{{ route('ekstrakurikuler.join', $ekskul->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     <button type="submit" class="btn btn-success">Ya, Gabung</button>
                                 </form>

@@ -1,25 +1,37 @@
+{{-- 
+    File: tambah_berita.blade.php
+    Deskripsi: Halaman tambah berita ekstrakurikuler yang memungkinkan admin/guru untuk membuat berita baru
+    Author: Tim Pengembang
+    Tanggal: 2024
+--}}
+
 @section('title', 'Tambah Berita - EkstrakurikulerKu.id')
 
 <x-app-layout>
+    {{-- Header Section - Menampilkan judul halaman --}}
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Tambah Berita Ekstrakurikuler {{ __($ekstrakurikuler->nama) }}
         </h2>
     </x-slot>
 
+    {{-- Main Content Section --}}
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     <div class="news-add-page">
+                        {{-- Header Tambah Berita --}}
                         <div class="add-header mb-6">
                             <h2 class="page-title text-2xl font-bold text-gray-800">Tambah Berita Ekstrakurikuler {{ __($ekstrakurikuler->nama) }}</h2>
                         </div>
 
+                        {{-- Form Tambah Berita --}}
                         <div class="add-form-container bg-white p-6 rounded-lg shadow">
                             <form action="{{ route('berita.store', $ekstrakurikuler->id) }}" method="POST" class="add-form space-y-6">
                                 @csrf
                                 
+                                {{-- Input Judul Berita --}}
                                 <div class="form-group">
                                     <label for="judul" class="form-label block text-sm font-medium text-gray-700 mb-1">Judul Berita</label>
                                     <div class="input-group relative">
@@ -36,6 +48,7 @@
                                     @enderror
                                 </div>
 
+                                {{-- Input Isi Berita --}}
                                 <div class="form-group">
                                     <label for="konten" class="form-label block text-sm font-medium text-gray-700 mb-1">Isi Berita</label>
                                     <div class="input-group">
@@ -50,6 +63,7 @@
                                     @enderror
                                 </div>
 
+                                {{-- Tombol Aksi --}}
                                 <div class="form-actions flex justify-end space-x-4">
                                     <a href="{{ route('ekstrakurikuler.detail', $ekstrakurikuler->id) }}" 
                                        class="btn-cancel inline-flex items-center px-4 py-2 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest hover:bg-gray-300 focus:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
@@ -69,7 +83,9 @@
     </div>
 </x-app-layout>
 
+{{-- Style untuk Form dan Komponen --}}
 <style>
+    /* Container Form */
     .form-container {
         display: flex;
         flex-direction: column;
@@ -79,10 +95,12 @@
         gap: 1rem;
     }
 
+    /* Grup Form */
     .form-group {
         margin-bottom: 1rem;
     }
 
+    /* Container Tombol */
     .button-container {
         display: flex;
         gap: 1rem;
@@ -91,22 +109,26 @@
         margin-bottom: 1rem;
     }
 
+    /* Style Tombol */
     .btn {
         padding: 0.5rem 1rem;
         border-radius: 0.375rem;
         font-weight: 500;
     }
 
+    /* Tombol Primary */
     .btn-primary {
         background-color: #2563EB;
         color: white;
     }
 
+    /* Tombol Danger */
     .btn-danger {
         background-color: #DC2626;
         color: white;
     }
 
+    /* Hover Effect */
     .btn:hover {
         opacity: 0.9;
     }

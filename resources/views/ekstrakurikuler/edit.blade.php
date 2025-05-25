@@ -1,26 +1,38 @@
+{{-- 
+    File: edit.blade.php
+    Deskripsi: Halaman edit ekstrakurikuler yang memungkinkan admin/guru untuk mengubah informasi ekstrakurikuler
+    Author: Tim Pengembang
+    Tanggal: 2024
+--}}
+
 @section('title', 'Edit Ekstrakurikuler - EkstrakurikulerKu.id')
 
 <x-app-layout>
+    {{-- Header Section - Menampilkan judul halaman --}}
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Edit Ekstrakurikuler') }}
         </h2>
     </x-slot>
 
+    {{-- Main Content Section --}}
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     <div class="ekskul-edit-page">
+                        {{-- Header Edit --}}
                         <div class="edit-header mb-6">
                             <h2 class="page-title text-2xl font-bold text-gray-800">Edit Ekstrakurikuler</h2>
                         </div>
 
+                        {{-- Form Edit Ekstrakurikuler --}}
                         <div class="edit-form-container bg-white p-6 rounded-lg shadow">
                             <form action="{{ route('ekstrakurikuler.update', $ekskul->id) }}" method="POST" class="edit-form space-y-6">
                                 @csrf
                                 @method('PUT')
                                 
+                                {{-- Input Nama Ekstrakurikuler --}}
                                 <div class="form-group">
                                     <label for="nama" class="form-label block text-sm font-medium text-gray-700 mb-1">Nama Ekstrakurikuler</label>
                                     <div class="input-group relative">
@@ -37,6 +49,7 @@
                                     @enderror
                                 </div>
 
+                                {{-- Input Guru Pembimbing --}}
                                 <div class="form-group">
                                     <label for="pembimbing" class="form-label block text-sm font-medium text-gray-700 mb-1">Guru Pembimbing</label>
                                     <div class="input-group relative">
@@ -53,6 +66,7 @@
                                     @enderror
                                 </div>
 
+                                {{-- Input Deskripsi --}}
                                 <div class="form-group">
                                     <label for="deskripsi" class="form-label block text-sm font-medium text-gray-700 mb-1">Deskripsi Ekstrakurikuler</label>
                                     <div class="input-group">
@@ -67,6 +81,7 @@
                                     @enderror
                                 </div>
 
+                                {{-- Tombol Aksi --}}
                                 <div class="form-actions flex justify-end space-x-4">
                                     <a href="{{ route('ekstrakurikuler.detail', $ekskul->id) }}" 
                                        class="btn-cancel inline-flex items-center px-4 py-2 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest hover:bg-gray-300 focus:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
@@ -86,7 +101,9 @@
     </div>
 </x-app-layout>
 
+{{-- Style untuk Form dan Komponen --}}
 <style>
+    /* Container Form */
     .form-container {
         display: flex;
         flex-direction: column;
@@ -96,10 +113,12 @@
         gap: 1rem;
     }
 
+    /* Grup Form */
     .form-group {
         margin-bottom: 1rem;
     }
 
+    /* Container Tombol */
     .button-container {
         display: flex;
         gap: 1rem;
@@ -108,22 +127,26 @@
         margin-bottom: 1rem;
     }
 
+    /* Style Tombol */
     .btn {
         padding: 0.5rem 1rem;
         border-radius: 0.375rem;
         font-weight: 500;
     }
 
+    /* Tombol Primary */
     .btn-primary {
         background-color: #2563EB;
         color: white;
     }
 
+    /* Tombol Danger */
     .btn-danger {
         background-color: #DC2626;
         color: white;
     }
 
+    /* Hover Effect */
     .btn:hover {
         opacity: 0.9;
     }

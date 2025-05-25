@@ -1,6 +1,14 @@
+{{-- 
+    File: dashboard.blade.php
+    Deskripsi: Halaman dashboard utama yang menampilkan informasi dan statistik berdasarkan role pengguna
+    Author: Tim Pengembang
+    Tanggal: 2024
+--}}
+
 @section('title', 'Dashboard - SMKN 5 SKA')
 
 <x-app-layout>
+    {{-- Header Section - Menampilkan informasi pengguna yang sedang login --}}
     <x-slot name="header">
         <div class="flex items-center bg-gradient-to-r from-blue-500 to-blue-300 p-6 rounded-lg shadow mb-6">
             <img src="{{ asset('person.svg') }}" alt="Logo" class="h-14 w-14 rounded-full bg-white p-2 shadow mr-4">
@@ -13,10 +21,11 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            {{-- Tampilan untuk Admin --}}
             @if(Auth::user()->role === 'admin')
-                <!-- Stats Grid -->
+                {{-- Grid Statistik Utama --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-                    <!-- Total User -->
+                    {{-- Total Pengguna --}}
                     <div class="bg-white rounded-lg shadow p-6 flex items-center">
                         <div class="bg-blue-500 p-3 rounded-full mr-4">
                             <i class="fas fa-users text-white text-2xl"></i>
@@ -27,7 +36,7 @@
                         </div>
                     </div>
 
-                    <!-- User Terverifikasi -->
+                    {{-- Pengguna Terverifikasi --}}
                     <div class="bg-white rounded-lg shadow p-6 flex items-center">
                         <div class="bg-green-500 p-3 rounded-full mr-4">
                             <i class="fas fa-check-circle text-white text-2xl"></i>
@@ -38,7 +47,7 @@
                         </div>
                     </div>
 
-                    <!-- User Belum Terverifikasi -->
+                    {{-- Pengguna Belum Terverifikasi --}}
                     <div class="bg-white rounded-lg shadow p-6 flex items-center">
                         <div class="bg-yellow-500 p-3 rounded-full mr-4">
                             <i class="fas fa-clock text-white text-2xl"></i>
@@ -49,7 +58,7 @@
                         </div>
                     </div>
 
-                    <!-- Total Ekstrakurikuler -->
+                    {{-- Total Ekstrakurikuler --}}
                     <div class="bg-white rounded-lg shadow p-6 flex items-center">
                         <div class="bg-indigo-500 p-3 rounded-full mr-4">
                             <i class="fas fa-school text-white text-2xl"></i>
@@ -61,9 +70,9 @@
                     </div>
                 </div>
 
-                <!-- Role Distribution -->
+                {{-- Distribusi Role Pengguna --}}
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <!-- Admin -->
+                    {{-- Admin --}}
                     <div class="bg-white rounded-lg shadow p-6 flex items-center">
                         <div class="bg-purple-500 p-3 rounded-full mr-4">
                             <i class="fas fa-user-shield text-white text-2xl"></i>
@@ -74,7 +83,7 @@
                         </div>
                     </div>
 
-                    <!-- Guru -->
+                    {{-- Guru --}}
                     <div class="bg-white rounded-lg shadow p-6 flex items-center">
                         <div class="bg-blue-500 p-3 rounded-full mr-4">
                             <i class="fas fa-chalkboard-teacher text-white text-2xl"></i>
@@ -85,7 +94,7 @@
                         </div>
                     </div>
 
-                    <!-- Siswa -->
+                    {{-- Siswa --}}
                     <div class="bg-white rounded-lg shadow p-6 flex items-center">
                         <div class="bg-green-500 p-3 rounded-full mr-4">
                             <i class="fas fa-user-graduate text-white text-2xl"></i>
@@ -96,10 +105,12 @@
                         </div>
                     </div>
                 </div>
+
+            {{-- Tampilan untuk Guru --}}
             @elseif(Auth::user()->role === 'guru')
-                <!-- Stats Grid for Guru -->
+                {{-- Grid Statistik Guru --}}
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <!-- Total Ekstrakurikuler -->
+                    {{-- Total Ekstrakurikuler --}}
                     <div class="bg-white rounded-lg shadow p-6 flex items-center">
                         <div class="bg-indigo-500 p-3 rounded-full mr-4">
                             <i class="fas fa-school text-white text-2xl"></i>
@@ -110,7 +121,7 @@
                         </div>
                     </div>
 
-                    <!-- Total Berita -->
+                    {{-- Total Berita --}}
                     <div class="bg-white rounded-lg shadow p-6 flex items-center">
                         <div class="bg-blue-500 p-3 rounded-full mr-4">
                             <i class="fas fa-newspaper text-white text-2xl"></i>
@@ -121,7 +132,7 @@
                         </div>
                     </div>
 
-                    <!-- Berita Saya -->
+                    {{-- Berita Saya --}}
                     <div class="bg-white rounded-lg shadow p-6 flex items-center">
                         <div class="bg-green-500 p-3 rounded-full mr-4">
                             <i class="fas fa-user-edit text-white text-2xl"></i>
@@ -132,10 +143,12 @@
                         </div>
                     </div>
                 </div>
+
+            {{-- Tampilan untuk Siswa --}}
             @else
-                <!-- Stats Grid for Siswa -->
+                {{-- Grid Statistik Siswa --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <!-- Ekstrakurikuler yang Diikuti -->
+                    {{-- Ekstrakurikuler yang Diikuti --}}
                     <div class="bg-white rounded-lg shadow p-6 flex items-center">
                         <div class="bg-blue-500 p-3 rounded-full mr-4">
                             <i class="fas fa-users text-white text-2xl"></i>
@@ -148,7 +161,7 @@
                 </div>
             @endif
 
-            <!-- Berita Terbaru -->
+            {{-- Bagian Berita Terbaru --}}
             <div class="bg-white rounded-lg shadow p-6">
                 <h3 class="text-lg font-bold text-gray-900 mb-4">Berita Terbaru</h3>
                 <div class="space-y-4">

@@ -93,3 +93,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 // Autentikasi
 require __DIR__.'/auth.php';
+
+// Route untuk keluar dari ekstrakurikuler
+Route::post('/ekstrakurikuler/{id}/leave', [EkstrakurikulerController::class, 'leave'])
+    ->name('ekstrakurikuler.leave');
+
+// Route untuk bergabung ke ekstrakurikuler
+Route::post('/ekstrakurikuler/{id}/join', [EkstrakurikulerController::class, 'join'])
+    ->middleware(['auth'])
+    ->name('ekstrakurikuler.join');

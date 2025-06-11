@@ -10,8 +10,28 @@ class Anggota extends Model
     use HasFactory;
 
     protected $table = 'anggota_ekstrakurikuler';
+    public $timestamps = true;
 
-    protected $fillable = ['user_id', 'nama', 'ekskul_id'];
+    protected $fillable = [
+        'user_id', 
+        'nama', 
+        'ekskul_id'
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at'
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::creating(function ($model) {
+            $model->created_at = $model->created_at ?: now();
+            $model->updated_at = $model->updated_at ?: now();
+        });
+    }
     
     public function anggota()
     {

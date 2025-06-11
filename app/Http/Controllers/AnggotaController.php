@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Anggota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class AnggotaController extends Controller
 {
@@ -17,7 +19,9 @@ class AnggotaController extends Controller
             Anggota::create([
                 'user_id' => $user->id,
                 'nama' => $user->name,
-                'ekskul_id' => $id
+                'ekskul_id' => $id,
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
         }
 

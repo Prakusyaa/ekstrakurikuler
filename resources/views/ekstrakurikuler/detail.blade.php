@@ -52,7 +52,6 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <form id="confirmForm" method="POST" class="d-inline">
                         @csrf
-                        @method('DELETE')
                         <button type="submit" class="btn btn-danger">Konfirmasi</button>
                     </form>
                 </div>
@@ -178,7 +177,12 @@
                                                     </td>
                                                     {{-- Kolom Tanggal Bergabung --}}
                                                     <td class="px-6 py-4 whitespace-nowrap">
-                                                        <div class="join-date text-sm text-gray-500">{{ $anggota->created_at->format('d M Y') }}</div>
+                                                        <div class="join-date text-sm text-gray-500">
+                                                            @php
+                                                                $date = $anggota->created_at ? \Carbon\Carbon::parse($anggota->created_at) : null;
+                                                            @endphp
+                                                            {{ $date ? $date->format('d M Y') : 'Tanggal tidak tersedia' }}
+                                                        </div>
                                                     </td>
                                                     {{-- Kolom Aksi untuk Guru --}}
                                                     @if (Auth::user()->role == 'guru')

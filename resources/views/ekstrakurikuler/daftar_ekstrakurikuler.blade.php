@@ -160,7 +160,7 @@
                             <div class="bg-white p-2 rounded-full mr-3">
                                 <i class="fas fa-users text-blue-500 text-xl"></i>
                             </div>
-                            <h5 class="text-xl font-bold text-white truncate">{{ $ekskul->nama }}</h5>
+                            <h5 class="text-xl font-bold text-white truncate">Ekstrakurikuler {{ $ekskul->nama }}</h5>
                         </div>
                     </div>
 
